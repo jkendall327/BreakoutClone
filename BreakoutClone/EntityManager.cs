@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using BreakoutClone.Content;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +25,20 @@ namespace BreakoutClone
 
         public void CreateEntities()
         {
-            Paddle player = new Paddle();
+            player = new Paddle(new Vector2(Breakout.ScreenSize.X / 3, 400));
 
-            CreateBricks();
+            bricks = CreateBricks();
+
+            drawables.Add(player);
+            foreach (Brick brick in bricks)
+            {
+                drawables.Add(brick);
+            }
         }
 
-        private void CreateBricks()
+        private List<Brick> CreateBricks()
         {
-
+            return new List<Brick>() { new Brick(new Vector2(10, 50))};
         }
 
         public void Draw(SpriteBatch spritebatch)

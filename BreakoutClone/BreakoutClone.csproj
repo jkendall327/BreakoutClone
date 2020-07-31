@@ -41,7 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Content\Assets.cs" />
+    <Compile Include="Assets.cs" />
     <Compile Include="Paddle.cs" />
     <Compile Include="Breakout.cs" />
     <Compile Include="Brick.cs" />

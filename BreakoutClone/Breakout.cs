@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BreakoutClone.Content;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -36,17 +37,18 @@ namespace BreakoutClone
         protected override void Initialize()
         {
             entityManager = new EntityManager();
-            entityManager.CreateEntities();
+
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            Assets.Load(Content);
+
+            entityManager.CreateEntities();
         }
 
         protected override void UnloadContent()
@@ -68,7 +70,9 @@ namespace BreakoutClone
         {
             GraphicsDevice.Clear(Color.Black);
 
+            spriteBatch.Begin();
             entityManager.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
