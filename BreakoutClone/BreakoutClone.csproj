@@ -41,7 +41,12 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Content\Assets.cs" />
+    <Compile Include="Paddle.cs" />
     <Compile Include="Breakout.cs" />
+    <Compile Include="Brick.cs" />
+    <Compile Include="EntityManager.cs" />
+    <Compile Include="IDrawable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

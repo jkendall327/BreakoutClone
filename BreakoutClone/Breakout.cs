@@ -19,6 +19,8 @@ namespace BreakoutClone
         private readonly int gameWidth = 500;
         private readonly int gameHeight = 700;
 
+        EntityManager entityManager;
+
         public Breakout()
         {
             Instance = this;
@@ -33,7 +35,8 @@ namespace BreakoutClone
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            entityManager = new EntityManager();
+            entityManager.CreateEntities();
 
             base.Initialize();
         }
@@ -65,7 +68,7 @@ namespace BreakoutClone
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            entityManager.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }
