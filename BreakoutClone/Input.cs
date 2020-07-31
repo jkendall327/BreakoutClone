@@ -27,11 +27,8 @@ namespace BreakoutClone
 
         Vector2 nextPosition;
 
-        Rectangle ScreenSize = new Rectangle(0, 0, 500, 700);
-
-        public Vector2 UpdatePosition(Vector2 currentPosition, Rectangle hitbox)
+        public Vector2 UpdatePosition(Vector2 currentPosition)
         {
-
             if (speed < 0)
             {
                 speed = 0;
@@ -47,14 +44,7 @@ namespace BreakoutClone
 
             CheckInput();
 
-            Vector2 updatedPosition = CalculateFinalPosition(currentPosition);
-
-            if (ScreenSize.Contains(updatedPosition) && ScreenSize.Contains(new Vector2(updatedPosition.X + hitbox.Width, updatedPosition.Y)))
-            {
-                return updatedPosition;
-            }
-
-            return currentPosition;
+            return CalculateFinalPosition(currentPosition);
         }
 
         private void CheckInput()

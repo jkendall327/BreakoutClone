@@ -14,8 +14,11 @@ namespace BreakoutClone
         Texture2D Image;
 
         Rectangle Hitbox;
+        Rectangle NextHitbox;
 
         Vector2 Position;
+
+        Vector2 NextPosition;
 
         Input input;
 
@@ -38,8 +41,14 @@ namespace BreakoutClone
 
         public void Update()
         {
-            Position = input.UpdatePosition(Position, Hitbox);
-            Hitbox = new Rectangle(Position.ToPoint(), new Point(Hitbox.Width, Hitbox.Height));
+            NextPosition = input.UpdatePosition(Position);
+            NextHitbox = new Rectangle(NextPosition.ToPoint(), new Point(Hitbox.Width, Hitbox.Height));
+
+            if (new Rectangle(0, 0, 500, 700).Contains(NextHitbox))
+            {
+                Position = NextPosition;
+                Hitbox = NextHitbox;
+            }
 
             Console.WriteLine(Position.ToString());
             Console.WriteLine(Hitbox.ToString());
