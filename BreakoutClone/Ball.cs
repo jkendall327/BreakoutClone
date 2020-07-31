@@ -37,6 +37,8 @@ namespace BreakoutClone
         private void Move()
         {
 
+            Position.X += 1;
+            Position.Y += 1;
         }
 
         public void Draw(SpriteBatch spritebatch)

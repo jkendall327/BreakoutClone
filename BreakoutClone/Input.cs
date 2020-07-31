@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BreakoutClone.Content;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -18,29 +19,15 @@ namespace BreakoutClone
          * Until you're back to standstill.
          */
 
-        int friction;
+        int friction = 2;
 
-        int force;
+        int force = 3;
 
         int speed;
 
         Vector2 nextPosition;
 
-        Rectangle Hitbox;
-
-        Rectangle ScreenSize = new Rectangle((int) Breakout.ScreenSize.X, (int) Breakout.ScreenSize.Y, Breakout.Viewport.Width, Breakout.Viewport.Height);
-
-        public Input()
-        {
-            friction = 2;
-
-            force = 0;
-
-            speed = 0;
-
-            playerDirection = new Direction();
-
-        }
+        Rectangle ScreenSize = new Rectangle(0, 0, 500, 700);
 
         public Vector2 UpdatePosition(Vector2 currentPosition, Rectangle hitbox)
         {
@@ -55,33 +42,32 @@ namespace BreakoutClone
                 {
                     speed = 0;
                 }
-
                 speed -= friction;
             }
 
             CheckInput();
 
-            return CalculateFinalPosition(currentPosition);
+            Vector2 updatedPosition = CalculateFinalPosition(currentPosition);
+
+            if (ScreenSize.Contains(updatedPosition) && ScreenSize.Contains(new Vector2(updatedPosition.X + hitbox.Width, updatedPosition.Y)))
+            {
+                return updatedPosition;
+            }
+
+            return currentPosition;
         }
 
         private void CheckInput()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                GenerateForce();
+                speed += force;
+
+                if (speed >= 10)
+                {
+                    speed = 10;
+                }
             }
-        }
-
-        private void GenerateForce()
-        {
-            force = 3;
-            speed += force;
-
-            if (speed >= 20)
-            {
-                speed = 20;
-            }
-
         }
 
         private Vector2 CalculateFinalPosition(Vector2 originalPosition)
