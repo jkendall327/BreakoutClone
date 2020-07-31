@@ -9,26 +9,17 @@ using System.Threading.Tasks;
 
 namespace BreakoutClone
 {
-    class Brick : IDrawable, ICollide
+    class Ball : IDrawable, ICollide
     {
-        Texture2D Image = Assets.Brick;
+        Texture2D Image = Assets.Ball;
 
         Vector2 Position;
 
-        Rectangle Hitbox;
+        Vector2 Destination;
 
-        public Brick(Vector2 position)
+        public Ball(Vector2 position)
         {
             Position = position;
-
-            Hitbox = Image.Bounds;
-        }
-
-        public Brick(int x, int y)
-        {
-            Position = new Vector2(x, y);
-
-            Hitbox = Image.Bounds;
         }
 
         public event EventHandler<EventArgs> Collision;
@@ -36,6 +27,16 @@ namespace BreakoutClone
         public void CheckIfCollide(Rectangle bounds)
         {
             throw new NotImplementedException();
+        }
+
+        public void Update()
+        {
+            Move();
+        }
+
+        private void Move()
+        {
+
         }
 
         public void Draw(SpriteBatch spritebatch)

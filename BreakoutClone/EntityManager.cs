@@ -18,6 +18,8 @@ namespace BreakoutClone
 
         Paddle player;
 
+        Ball ball;
+
         public EntityManager()
         {
 
@@ -25,11 +27,14 @@ namespace BreakoutClone
 
         public void CreateEntities()
         {
-            player = new Paddle(new Vector2(Breakout.ScreenSize.X / 3, 400));
+            player = new Paddle(new Vector2(Breakout.ScreenSize.X / 3, 600));
+
+            ball = new Ball(new Vector2(200, 300));
 
             bricks = CreateBricks(8);
 
             drawables.Add(player);
+            drawables.Add(ball);
             foreach (Brick brick in bricks)
             {
                 drawables.Add(brick);
