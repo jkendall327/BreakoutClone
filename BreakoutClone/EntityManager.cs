@@ -27,7 +27,7 @@ namespace BreakoutClone
         {
             player = new Paddle(new Vector2(Breakout.ScreenSize.X / 3, 400));
 
-            bricks = CreateBricks();
+            bricks = CreateBricks(8);
 
             drawables.Add(player);
             foreach (Brick brick in bricks)
@@ -36,21 +36,36 @@ namespace BreakoutClone
             }
         }
 
-        private List<Brick> CreateBricks()
+        private List<Brick> CreateBricks(int numberOfRows)
+        {
+            var bricks = new List<Brick>();
+
+            int yCoordinate = 50;
+            for (int i = 0; i < numberOfRows; i++)
+            {
+                var row = CreateRow(yCoordinate);
+                bricks.AddRange(row);
+                yCoordinate += Assets.Brick.Height;
+            }
+
+            return bricks;
+        }
+
+        private List<Brick> CreateRow(int yCoordinate)
         {
             int numberOfBricks = (int)(Breakout.ScreenSize.Length() / Assets.Brick.Width);
 
-            var bricks = new List<Brick>();
+            var row = new List<Brick>();
 
             int xCoordinate = 0;
 
             for (int i = 0; i < numberOfBricks; i++)
             {
-                bricks.Add(new Brick(xCoordinate, 50));
+                row.Add(new Brick(xCoordinate, yCoordinate));
                 xCoordinate += Assets.Brick.Width;
             }
 
-            return bricks;
+            return row;
         }
 
         public void Draw(SpriteBatch spritebatch)
