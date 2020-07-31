@@ -45,6 +45,7 @@
     <Compile Include="Ball.cs" />
     <Compile Include="ICollide.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="IUpdate.cs" />
     <Compile Include="Paddle.cs" />
     <Compile Include="Breakout.cs" />
     <Compile Include="Brick.cs" />

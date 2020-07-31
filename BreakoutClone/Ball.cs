@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BreakoutClone
 {
-    class Ball : IDrawable, ICollide
+    class Ball : IDrawable, ICollide, IUpdate
     {
         Texture2D Image = Assets.Ball;
 

@@ -61,7 +61,7 @@ namespace BreakoutClone
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            entityManager.Update();
 
             base.Update(gameTime);
         }

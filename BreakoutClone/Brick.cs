@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BreakoutClone
 {
-    class Brick : IDrawable, ICollide
+    class Brick : IDrawable, ICollide, IUpdate
     {
         Texture2D Image = Assets.Brick;
 
@@ -41,6 +41,10 @@ namespace BreakoutClone
         public void Draw(SpriteBatch spritebatch)
         {
             spritebatch.Draw(Image, Position, Color.White);
+        }
+
+        public void Update()
+        {
         }
     }
 }

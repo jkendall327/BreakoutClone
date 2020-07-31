@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BreakoutClone
 {
-    class Paddle : IDrawable, ICollide
+    class Paddle : IDrawable, ICollide, IUpdate
     {
         Texture2D Image;
 
@@ -17,12 +17,16 @@ namespace BreakoutClone
 
         Vector2 Position;
 
+        Input input;
+
         public Paddle(Vector2 position)
         {
             Position = position;
 
             Image = Assets.Paddle;
             Hitbox = Image.Bounds;
+
+            input = new Input();
         }
 
         public event EventHandler<EventArgs> Collision;
@@ -30,6 +34,11 @@ namespace BreakoutClone
         public void CheckIfCollide(Rectangle bounds)
         {
             throw new NotImplementedException();
+        }
+
+        public void Update()
+        {
+            Position = input.UpdatePosition(Position);
         }
 
         public void Draw(SpriteBatch spritebatch)

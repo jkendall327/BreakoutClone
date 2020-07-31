@@ -16,6 +16,8 @@ namespace BreakoutClone
 
         List<IDrawable> drawables = new List<IDrawable>();
 
+        List<IUpdate> updaters = new List<IUpdate>();
+
         Paddle player;
 
         Ball ball;
@@ -38,6 +40,13 @@ namespace BreakoutClone
             foreach (Brick brick in bricks)
             {
                 drawables.Add(brick);
+            }
+
+            updaters.Add(player);
+            updaters.Add(ball);
+            foreach (Brick brick in bricks)
+            {
+                updaters.Add(brick);
             }
         }
 
@@ -71,6 +80,14 @@ namespace BreakoutClone
             }
 
             return row;
+        }
+
+        public void Update()
+        {
+            foreach (IUpdate updatable in updaters)
+            {
+                updatable.Update();
+            }
         }
 
         public void Draw(SpriteBatch spritebatch)
