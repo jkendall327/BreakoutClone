@@ -24,9 +24,11 @@ namespace BreakoutClone
 
         int speed;
 
-        enum Direction { Left, Right };
+        Vector2 nextPosition;
 
-        Direction playerDirection;
+        Rectangle Hitbox;
+
+        Rectangle ScreenSize = new Rectangle((int) Breakout.ScreenSize.X, (int) Breakout.ScreenSize.Y, Breakout.Viewport.Width, Breakout.Viewport.Height);
 
         public Input()
         {
@@ -37,12 +39,23 @@ namespace BreakoutClone
             speed = 0;
 
             playerDirection = new Direction();
+
         }
 
-        public Vector2 UpdatePosition(Vector2 currentPosition)
+        public Vector2 UpdatePosition(Vector2 currentPosition, Rectangle hitbox)
         {
+
+            if (speed < 0)
+            {
+                speed = 0;
+            }
             if (speed > 0)
             {
+                if (friction > speed)
+                {
+                    speed = 0;
+                }
+
                 speed -= friction;
             }
 
@@ -53,23 +66,15 @@ namespace BreakoutClone
 
         private void CheckInput()
         {
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                playerDirection = Direction.Right;
-                GenerateForce();
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                playerDirection = Direction.Left;
                 GenerateForce();
             }
         }
 
         private void GenerateForce()
         {
-            force = 2;
+            force = 3;
             speed += force;
 
             if (speed >= 20)
@@ -81,29 +86,19 @@ namespace BreakoutClone
 
         private Vector2 CalculateFinalPosition(Vector2 originalPosition)
         {
-            Vector2 finalPosition;
-            switch (playerDirection)
+            nextPosition.Y = originalPosition.Y;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                case Direction.Left:
-                    finalPosition = new Vector2(originalPosition.X - speed, originalPosition.Y);
-                    break;
-                case Direction.Right:
-                    finalPosition = new Vector2(originalPosition.X + speed, originalPosition.Y);
-                    break;
-                default:
-                    finalPosition = new Vector2(0, 0);
-                    break;
+                nextPosition.X += speed;
             }
 
-            Rectangle gameBoundaries = new Rectangle((int)Breakout.ScreenSize.X, (int)Breakout.ScreenSize.Y, Breakout.Viewport.Width, Breakout.Viewport.Height);
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                nextPosition.X -= speed;
+            }
 
-            //if (gameBoundaries.Contains(finalPosition) == false)
-            //{
-            //    finalPosition.X = 0;
-            //    finalPosition.Y = 0;
-            //}
-
-            return finalPosition;
+            return nextPosition;
         }
 
     }

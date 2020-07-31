@@ -29,7 +29,7 @@ namespace BreakoutClone
 
         public void CreateEntities()
         {
-            player = new Paddle(new Vector2(Breakout.ScreenSize.X / 3, 600));
+            player = new Paddle(new Vector2(Breakout.ScreenSize.X / 2, 600));
 
             ball = new Ball(new Vector2(200, 300));
 

@@ -38,7 +38,8 @@ namespace BreakoutClone
 
         public void Update()
         {
-            Position = input.UpdatePosition(Position);
+            Position = input.UpdatePosition(Position, Hitbox);
+
         }
 
         public void Draw(SpriteBatch spritebatch)
