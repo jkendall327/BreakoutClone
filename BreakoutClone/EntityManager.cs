@@ -38,7 +38,19 @@ namespace BreakoutClone
 
         private List<Brick> CreateBricks()
         {
-            return new List<Brick>() { new Brick(new Vector2(10, 50))};
+            int numberOfBricks = (int)(Breakout.ScreenSize.Length() / Assets.Brick.Width);
+
+            var bricks = new List<Brick>();
+
+            int xCoordinate = 0;
+
+            for (int i = 0; i < numberOfBricks; i++)
+            {
+                bricks.Add(new Brick(xCoordinate, 50));
+                xCoordinate += Assets.Brick.Width;
+            }
+
+            return bricks;
         }
 
         public void Draw(SpriteBatch spritebatch)
