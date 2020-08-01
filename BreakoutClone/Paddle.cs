@@ -69,6 +69,7 @@ namespace BreakoutClone
             Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
             oldKeyboardState = newKeyboardState;
+            oldMouseState = newmouseState;
         }
 
         public void MoveTo(float xCoordinate)
