@@ -25,6 +25,8 @@ namespace BreakoutClone
         private KeyboardState oldKeyboardState;
         private MouseState oldMouseState;
 
+        public event EventHandler<Rectangle> paddleMoved;
+
         public Paddle(Vector2 position)
         {
             Position = position;
@@ -42,7 +44,8 @@ namespace BreakoutClone
         {
             CheckMouse();
 
-            CheckKeyboard();         
+            CheckKeyboard();
+
         }
 
         private void CheckMouse()
@@ -86,6 +89,10 @@ namespace BreakoutClone
             {
                 Position.X = xCoordinate;
             }
+
+            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
+
+            paddleMoved.Invoke(this, Hitbox);
         }
 
         public void MoveLeft()
@@ -96,6 +103,10 @@ namespace BreakoutClone
             {
                 Position.X = 1;
             }
+
+            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
+
+            paddleMoved.Invoke(this, Hitbox);
         }
 
         public void MoveRight()
@@ -106,6 +117,10 @@ namespace BreakoutClone
             {
                 Position.X = Breakout.ScreenSize.X - Width;
             }
+
+            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
+
+            paddleMoved.Invoke(this, Hitbox);
         }
 
         public void Draw(SpriteBatch spritebatch)
