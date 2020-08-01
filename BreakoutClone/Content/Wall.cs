@@ -16,18 +16,24 @@ namespace BreakoutClone.Content
         {
             BrickWall = new Brick[3, 10];
 
+            // Loop for setting the columns.
             for (int i = 0; i < 3; i++)
             {
-                y += i * Assets.Brick.Height;
+                // The y-coordinate is the origin point of the wall,
+                // added to the number of columns * brick height.
+                // Same logic for rows.
+                int yCoordinate = (int)(y + i * Assets.Brick.Height);
 
+                // Loop for setting the rows.
                 for (int j = 0; j < 10; j++)
                 {
-                    x += j * Assets.Brick.Width;
+                    int xCoordinate = (int)(x + j * Assets.Brick.Width);
 
-                    Brick brick = new Brick(new Vector2(x, y));
+                    Brick brick = new Brick(new Vector2(xCoordinate, yCoordinate));
 
                     BrickWall[i, j] = brick;
                 }
+
             }
         }
 
@@ -38,45 +44,7 @@ namespace BreakoutClone.Content
                 brick.Draw(spriteBatch);
             }
 
-            //for (int i = 0; i < 7; i++)
-            //{
-            //    for (int j = 0; j < 10; j++)
-            //    {
-            //        BrickWall[i, j].Draw(spriteBatch);
-            //    }
-            //}
         }
 
-        private List<Brick> CreateBricks(int numberOfRows)
-        {
-            var bricks = new List<Brick>();
-
-            int yCoordinate = 50;
-            for (int i = 0; i < numberOfRows; i++)
-            {
-                var row = CreateRow(yCoordinate);
-                bricks.AddRange(row);
-                yCoordinate += Assets.Brick.Height;
-            }
-
-            return bricks;
-        }
-
-        private List<Brick> CreateRow(int yCoordinate)
-        {
-            int numberOfBricks = (int)(Breakout.ScreenSize.Length() / Assets.Brick.Width);
-
-            var row = new List<Brick>();
-
-            int xCoordinate = 0;
-
-            for (int i = 0; i < numberOfBricks; i++)
-            {
-                row.Add(new Brick(xCoordinate, yCoordinate));
-                xCoordinate += Assets.Brick.Width;
-            }
-
-            return row;
-        }
     }
 }
