@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BreakoutClone
 {
-    class Ball : IDrawable, IUpdate
+    class Ball : IDrawable
     {
         Texture2D Image = Assets.Ball;
 
@@ -48,12 +48,7 @@ namespace BreakoutClone
             PaddleHitbox = hitbox;
         }
 
-        public void Update()
-        {
-            Move();
-        }
-
-        private void Move()
+        public void Update(Wall wall)
         {
             Position.X += XVelocity;
             Position.Y += YVelocity;
@@ -72,13 +67,30 @@ namespace BreakoutClone
 
             if (Position.Y < 200)
             {
-                CheckForBrick();
+                CheckForBrick(wall);
             }
         }
 
-        private void CheckForBrick()
+        private void CheckForBrick(Wall wall)
         {
+            Rectangle ballHitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Brick brick = wall.BrickWall[i, j];
+
+                    if (brick.isAlive)
+                    {
+                        if (Rectangle.Intersect(brick.Hitbox, ballHitbox) != Rectangle.Empty)
+                        {
+                            brick.isAlive = false;
+                            YVelocity *= 1;
+                        }
+                    }
+                }
+            }
         }
 
         private void CheckForPaddle()

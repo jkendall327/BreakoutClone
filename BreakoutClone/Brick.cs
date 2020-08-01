@@ -15,13 +15,17 @@ namespace BreakoutClone
 
         Vector2 Position;
 
-        Rectangle Hitbox;
+        public Rectangle Hitbox { get; set; }
+
+        public bool isAlive { get; set; }
 
         public Brick(Vector2 position)
         {
+            isAlive = true;
+
             Position = position;
 
-            Hitbox = Image.Bounds;
+            Hitbox = new Rectangle(Position.ToPoint(), new Point(Image.Width, Image.Height));
         }
 
         public Brick(int x, int y)
@@ -33,7 +37,10 @@ namespace BreakoutClone
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(Image, Position, Color.White);
+            if (isAlive)
+            {
+                spritebatch.Draw(Image, Position, Color.White); 
+            }
         }
 
         public void Update()
