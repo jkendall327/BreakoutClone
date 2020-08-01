@@ -31,7 +31,7 @@ namespace BreakoutClone
         {
             player = new Paddle(new Vector2(Breakout.ScreenSize.X / 2, 600));
 
-            ball = new Ball(new Vector2(200, 300));
+            ball = new Ball(new Vector2(200, 300), 3, 3);
 
             bricks = CreateBricks(8);
 

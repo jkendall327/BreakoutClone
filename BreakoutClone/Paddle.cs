@@ -42,8 +42,7 @@ namespace BreakoutClone
         {
             CheckMouse();
 
-            CheckKeyboard();
-            
+            CheckKeyboard();         
         }
 
         private void CheckMouse()
