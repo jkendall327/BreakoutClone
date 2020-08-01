@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BreakoutClone
 {
-    class Brick : IDrawable, ICollide, IUpdate
+    class Brick : IDrawable, IUpdate
     {
         Texture2D Image = Assets.Brick;
 
@@ -29,13 +29,6 @@ namespace BreakoutClone
             Position = new Vector2(x, y);
 
             Hitbox = Image.Bounds;
-        }
-
-        public event EventHandler<EventArgs> Collision;
-
-        public void CheckIfCollide(Rectangle bounds)
-        {
-            throw new NotImplementedException();
         }
 
         public void Draw(SpriteBatch spritebatch)

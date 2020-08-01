@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BreakoutClone
 {
-    class Paddle : IDrawable, ICollide, IUpdate
+    class Paddle : IDrawable, IUpdate
     {
         Texture2D Image;
 
@@ -30,13 +30,6 @@ namespace BreakoutClone
             Hitbox = Image.Bounds;
 
             input = new Input();
-        }
-
-        public event EventHandler<EventArgs> Collision;
-
-        public void CheckIfCollide(Rectangle bounds)
-        {
-            throw new NotImplementedException();
         }
 
         public void Update()

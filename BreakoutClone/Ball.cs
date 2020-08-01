@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BreakoutClone
 {
-    class Ball : IDrawable, ICollide, IUpdate
+    class Ball : IDrawable, IUpdate
     {
         Texture2D Image = Assets.Ball;
 
@@ -20,13 +20,6 @@ namespace BreakoutClone
         public Ball(Vector2 position)
         {
             Position = position;
-        }
-
-        public event EventHandler<EventArgs> Collision;
-
-        public void CheckIfCollide(Rectangle bounds)
-        {
-            throw new NotImplementedException();
         }
 
         public void Update()
