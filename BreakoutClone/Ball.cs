@@ -23,6 +23,8 @@ namespace BreakoutClone
 
         public float YVelocity { get; set; }
 
+        public Rectangle PaddleHitbox { get; set; }
+
         public Ball(Vector2 position, float XVelocity, float YVelocity)
         {
             Position = position;
@@ -32,6 +34,18 @@ namespace BreakoutClone
 
             Width = Image.Width;
             Height = Image.Height;
+        }
+
+        // Subscribes to paddle so it can update its version
+        // of the player's hitbox whenever it moves.
+        public void Subscribe(Paddle paddle)
+        {
+            paddle.paddleMoved += OnPaddleMoved;
+        }
+
+        private void OnPaddleMoved(object sender, Rectangle hitbox)
+        {
+            PaddleHitbox = hitbox;
         }
 
         public void Update()
@@ -45,6 +59,22 @@ namespace BreakoutClone
             Position.Y += YVelocity;
 
             CheckForWalls();
+
+            CheckForPaddle();
+        }
+
+        private void CheckForPaddle()
+        {
+            Rectangle ballHitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
+
+            // If the two hitboxes overlap.
+            if (Rectangle.Intersect(PaddleHitbox, ballHitbox) != Rectangle.Empty)
+            {
+                XVelocity *= -1;
+                YVelocity *= -1;
+                Position.Y = PaddleHitbox.Top - Height;
+
+            }
         }
 
         private void CheckForWalls()

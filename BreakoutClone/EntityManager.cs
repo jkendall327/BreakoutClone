@@ -33,6 +33,8 @@ namespace BreakoutClone
 
             ball = new Ball(new Vector2(200, 300), 3, 3);
 
+            ball.Subscribe(player);
+
             bricks = CreateBricks(8);
 
             drawables.Add(player);
