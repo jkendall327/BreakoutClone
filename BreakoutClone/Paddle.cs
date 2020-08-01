@@ -19,16 +19,11 @@ namespace BreakoutClone
         public int Height { get; set; }
 
         Rectangle Hitbox;
-        Rectangle NextHitbox;
 
         Vector2 Position;
 
-        Vector2 NextPosition;
-
-        Input input;
-
         private KeyboardState oldKeyboardState;
-
+        private MouseState oldMouseState;
 
         public Paddle(Vector2 position)
         {
@@ -46,9 +41,22 @@ namespace BreakoutClone
 
         public void Update()
         {
+            // Mouse input logic.
+
+            MouseState newmouseState = Mouse.GetState();
+
+            if (oldMouseState.X != newmouseState.X)
+            {
+                if (Breakout.Viewport.Bounds.Contains(newmouseState.Position))
+                {
+                    MoveTo(newmouseState.X);
+                }
+            }
+
+            // Keyboard input logic.
+
             KeyboardState newKeyboardState = Keyboard.GetState();
 
-            //process keyboard events
             if (newKeyboardState.IsKeyDown(Keys.Left))
             {
                 MoveLeft();
@@ -58,7 +66,21 @@ namespace BreakoutClone
                 MoveRight();
             }
 
+            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
+
             oldKeyboardState = newKeyboardState;
+        }
+
+        public void MoveTo(float xCoordinate)
+        {
+            if (xCoordinate + Width > Breakout.ScreenSize.X)
+            {
+                Position.X = Breakout.ScreenSize.X - Width;
+            }
+            else
+            {
+                Position.X = xCoordinate;
+            }
         }
 
         public void MoveLeft()
