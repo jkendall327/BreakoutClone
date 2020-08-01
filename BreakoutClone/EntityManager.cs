@@ -22,6 +22,8 @@ namespace BreakoutClone
 
         Ball ball;
 
+        Wall wall;
+
         public EntityManager()
         {
 
@@ -35,21 +37,24 @@ namespace BreakoutClone
 
             ball.Subscribe(player);
 
-            bricks = CreateBricks(8);
+            //bricks = CreateBricks(8);
+
+            wall = new Wall(0, 100);
+            drawables.Add(wall);
 
             drawables.Add(player);
             drawables.Add(ball);
-            foreach (Brick brick in bricks)
-            {
-                drawables.Add(brick);
-            }
+            //foreach (Brick brick in bricks)
+            //{
+            //    drawables.Add(brick);
+            //}
 
             updaters.Add(player);
             updaters.Add(ball);
-            foreach (Brick brick in bricks)
-            {
-                updaters.Add(brick);
-            }
+            //foreach (Brick brick in bricks)
+            //{
+            //    updaters.Add(brick);
+            //}
         }
 
         private List<Brick> CreateBricks(int numberOfRows)
