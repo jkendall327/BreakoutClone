@@ -58,8 +58,11 @@ namespace BreakoutClone
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            // Pause the game if window loses focus.
+            if (IsActive == false)
+            {
+                return;
+            }
 
             entityManager.Update();
 

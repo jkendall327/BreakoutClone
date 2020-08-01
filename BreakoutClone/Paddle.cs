@@ -36,13 +36,18 @@ namespace BreakoutClone
             Height = Image.Height;
 
             Hitbox = Image.Bounds;
-
         }
 
         public void Update()
         {
-            // Mouse input logic.
+            CheckMouse();
 
+            CheckKeyboard();
+            
+        }
+
+        private void CheckMouse()
+        {
             MouseState newmouseState = Mouse.GetState();
 
             if (oldMouseState.X != newmouseState.X)
@@ -53,8 +58,11 @@ namespace BreakoutClone
                 }
             }
 
-            // Keyboard input logic.
+            oldMouseState = newmouseState;
+        }
 
+        private void CheckKeyboard()
+        {
             KeyboardState newKeyboardState = Keyboard.GetState();
 
             if (newKeyboardState.IsKeyDown(Keys.Left))
@@ -66,10 +74,7 @@ namespace BreakoutClone
                 MoveRight();
             }
 
-            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
-
             oldKeyboardState = newKeyboardState;
-            oldMouseState = newmouseState;
         }
 
         public void MoveTo(float xCoordinate)
