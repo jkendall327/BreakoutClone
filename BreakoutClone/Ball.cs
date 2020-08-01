@@ -60,7 +60,25 @@ namespace BreakoutClone
 
             CheckForWalls();
 
-            CheckForPaddle();
+            // Some basic checks so it's not checking for collision literally every frame.
+            // Bototm half of screen, check for paddle.
+            // Top half, check for bricks.
+
+            if (Position.Y > 200)
+            {
+                CheckForPaddle();
+
+            }
+
+            if (Position.Y < 200)
+            {
+                CheckForBrick();
+            }
+        }
+
+        private void CheckForBrick()
+        {
+
         }
 
         private void CheckForPaddle()
