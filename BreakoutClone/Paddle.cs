@@ -1,6 +1,7 @@
 ﻿using BreakoutClone.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,10 @@ namespace BreakoutClone
     {
         Texture2D Image;
 
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
         Rectangle Hitbox;
         Rectangle NextHitbox;
 
@@ -22,29 +27,58 @@ namespace BreakoutClone
 
         Input input;
 
+        private KeyboardState oldKeyboardState;
+
+
         public Paddle(Vector2 position)
         {
             Position = position;
 
             Image = Assets.Paddle;
+
+            Width = Image.Width;
+
+            Height = Image.Height;
+
             Hitbox = Image.Bounds;
 
-            input = new Input();
         }
 
         public void Update()
         {
-            NextPosition = input.UpdatePosition(Position);
-            NextHitbox = new Rectangle(NextPosition.ToPoint(), new Point(Hitbox.Width, Hitbox.Height));
+            KeyboardState newKeyboardState = Keyboard.GetState();
 
-            if (new Rectangle(0, 0, 500, 700).Contains(NextHitbox))
+            //process keyboard events
+            if (newKeyboardState.IsKeyDown(Keys.Left))
             {
-                Position = NextPosition;
-                Hitbox = NextHitbox;
+                MoveLeft();
+            }
+            if (newKeyboardState.IsKeyDown(Keys.Right))
+            {
+                MoveRight();
             }
 
-            Console.WriteLine(Position.ToString());
-            Console.WriteLine(Hitbox.ToString());
+            oldKeyboardState = newKeyboardState;
+        }
+
+        public void MoveLeft()
+        {
+            Position.X -= 5;
+
+            if (Position.X < 1)
+            {
+                Position.X = 1;
+            }
+        }
+
+        public void MoveRight()
+        {
+            Position.X += 5;
+
+            if (Position.X + Width > Breakout.ScreenSize.X)
+            {
+                Position.X = Breakout.ScreenSize.X - Width;
+            }
         }
 
         public void Draw(SpriteBatch spritebatch)
