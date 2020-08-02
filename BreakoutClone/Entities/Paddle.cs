@@ -42,9 +42,13 @@ namespace BreakoutClone
         {
             CheckMouse();
 
-            CheckKeyboard();
-
         }
+
+        /*
+         * TODO: Move this code out of here and into ScreenManager?
+         * Consolidate all the raw input checking into one place.
+         * Then pass those keys down to entitymanager through to the paddle.
+         */
 
         private void CheckMouse()
         {
@@ -59,22 +63,6 @@ namespace BreakoutClone
             }
 
             oldMouseState = newmouseState;
-        }
-
-        private void CheckKeyboard()
-        {
-            KeyboardState newKeyboardState = Keyboard.GetState();
-
-            if (newKeyboardState.IsKeyDown(Keys.Left))
-            {
-                MoveLeft();
-            }
-            if (newKeyboardState.IsKeyDown(Keys.Right))
-            {
-                MoveRight();
-            }
-
-            oldKeyboardState = newKeyboardState;
         }
 
         public void MoveTo(float xCoordinate)

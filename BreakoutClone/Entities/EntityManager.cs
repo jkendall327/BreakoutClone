@@ -1,6 +1,7 @@
 ﻿using BreakoutClone.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 namespace BreakoutClone
@@ -36,6 +37,18 @@ namespace BreakoutClone
             // Add items to drawable, updatable lists.
             Drawables = new List<IDrawable> { ActiveWall, Player, ActiveBall };
             Updaters = new List<IUpdate> { Player, ActiveWall };
+        }
+
+        public void HandleInput(Keys key)
+        {
+            if (key == Keys.Right)
+            {
+                Player.MoveRight();
+            }
+            if (key == Keys.Left)
+            {
+                Player.MoveLeft();
+            }
         }
 
         public void Update()

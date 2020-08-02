@@ -100,7 +100,15 @@ namespace BreakoutClone.Screens
             {
                 ChangeScreen(startScreen);
             }
-            //actionScreen.entityManager.
+
+            if (keyboardState.IsKeyDown(Keys.Right))
+            {
+                actionScreen.entityManager.HandleInput(Keys.Right);
+            }
+            if (keyboardState.IsKeyDown(Keys.Left))
+            {
+                actionScreen.entityManager.HandleInput(Keys.Left);
+            }
         }
 
         private void HandleOptionsScreenInput()
