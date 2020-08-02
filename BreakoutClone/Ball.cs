@@ -1,6 +1,7 @@
 ﻿using BreakoutClone.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace BreakoutClone
 {
@@ -19,6 +20,10 @@ namespace BreakoutClone
         public float YVelocity { get; set; }
 
         public Rectangle PaddleHitbox { get; set; }
+
+        Random random = new Random();
+
+        bool isActive = true;
 
         public Ball(Vector2 position, float XVelocity, float YVelocity)
         {
@@ -45,25 +50,37 @@ namespace BreakoutClone
 
         public void Update(Wall wall)
         {
-            Position.X += XVelocity;
-            Position.Y += YVelocity;
-
-            CheckForWalls();
-
-            // Some basic checks so it's not checking for collision literally every frame.
-            // Bototm half of screen, check for paddle.
-            // Top half, check for bricks.
-
-            if (Position.Y > 200)
+            if (isActive)
             {
-                CheckForPaddle();
+                Position.X += XVelocity;
+                Position.Y += YVelocity;
 
-            }
+                CheckForWalls();
 
-            if (Position.Y < 200)
-            {
-                CheckForBrick(wall);
+                // Some basic checks so it's not checking for collision literally every frame.
+                // Bototm half of screen, check for paddle.
+                // Top half, check for bricks.
+
+                if (Position.Y > 200)
+                {
+                    CheckForPaddle();
+
+                }
+
+                if (Position.Y < 200)
+                {
+                    CheckForBrick(wall);
+                } 
             }
+        }
+
+        public void Launch()
+        {
+            isActive = true;
+
+            // TODO: both could return zero, i.e. stationary ball.
+            XVelocity = random.Next(-1, 1);
+            YVelocity = random.Next(-1, 1);
         }
 
         private void CheckForBrick(Wall wall)
