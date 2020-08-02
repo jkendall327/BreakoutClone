@@ -1,6 +1,7 @@
 ﻿using BreakoutClone.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace BreakoutClone
 {
@@ -12,7 +13,12 @@ namespace BreakoutClone
         readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        MenuComponent menuComponent;
+        KeyboardState keyboardState;
+        KeyboardState oldKeyboardState;
+
+        GameScreen activeScreen;
+        StartScreen startScreen;
+        ActionScreen actionScreen;
 
         public static Breakout Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
@@ -48,8 +54,7 @@ namespace BreakoutClone
 
             string[] menuItems = { "Start Game", "High Scores", "End Game" };
 
-            menuComponent = new MenuComponent(this, spriteBatch, Content.Load<SpriteFont>("menufont"), menuItems);
-            Components.Add(menuComponent);
+
 
             Assets.Load(Content);
 

@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BreakoutClone
 {
-    public class MenuComponent : DrawableGameComponent
+	// https://www.dreamincode.net/forums/topic/143585-screen-manager-with-xna-part-1/
+
+	public class MenuComponent : DrawableGameComponent
 	{
 		string[] menuItems;
 		int selectedIndex;

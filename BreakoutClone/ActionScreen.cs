@@ -4,36 +4,30 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace BreakoutClone
 {
-	class StartScreen : GameScreen
+	class ActionScreen : GameScreen
 	{
-		MenuComponent menuComponent;
+		KeyboardState keyboardState;
 		Texture2D image;
 		Rectangle imageRectangle;
 
-		public int SelectedIndex
+		public ActionScreen(Game game, SpriteBatch spriteBatch, Texture2D image) : base(game, spriteBatch)
 		{
-			get { return menuComponent.SelectedIndex; }
-			set { menuComponent.SelectedIndex = value; }
-		}
-
-		public StartScreen(Game game, SpriteBatch spriteBatch, SpriteFont spriteFont, Texture2D image) : base(game, spriteBatch)
-		{
-			string[] menuItems = { "Start Game", "End Game" };
-
-			menuComponent = new MenuComponent(game, spriteBatch, spriteFont, menuItems);
-			Components.Add(menuComponent);
-
 			this.image = image;
-
 			imageRectangle = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+
+			keyboardState = Keyboard.GetState();
+
+			if (keyboardState.IsKeyDown(Keys.Escape))
+				game.Exit();
 		}
 
 		public override void Draw(GameTime gameTime)
