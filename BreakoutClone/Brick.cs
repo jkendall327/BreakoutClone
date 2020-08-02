@@ -21,7 +21,11 @@ namespace BreakoutClone
             Position = position;
 
             Hitbox = new Rectangle(Position.ToPoint(), new Point(Image.Width, Image.Height));
+            
+            
         }
+
+        
 
         public Brick(int x, int y)
         {

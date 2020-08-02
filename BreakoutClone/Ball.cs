@@ -70,28 +70,13 @@ namespace BreakoutClone
         {
             Rectangle ballHitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
-            bool hittingBrick = false;
-
-            for (int i = 0; i < 3; i++)
+            foreach (Brick brick in wall.BrickWall)
             {
-                if (hittingBrick == false)
+                if (brick.isAlive && ballHitbox.Intersects(brick.Hitbox))
                 {
-                    for (int j = 0; j < 10; j++)
-                    {
-                        Brick brick = wall.BrickWall[i, j];
-
-                        if (brick.isAlive)
-                        {
-                            if (Rectangle.Intersect(brick.Hitbox, ballHitbox) != Rectangle.Empty)
-                            {
-                                brick.isAlive = false;
-                                YVelocity *= -1;
-                                hittingBrick = true;
-
-                                break;
-                            }
-                        }
-                    }
+                    brick.isAlive = false;
+                    YVelocity *= -1;
+                    break;
                 }
             }
         }
