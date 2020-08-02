@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BreakoutClone.Content
 {
-    class Assets
+    public static class Assets
     {
         public static Texture2D Paddle;
 

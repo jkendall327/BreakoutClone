@@ -27,8 +27,6 @@ namespace BreakoutClone
         private readonly int gameWidth = 500;
         private readonly int gameHeight = 700;
 
-        EntityManager entityManager;
-
         public Breakout()
         {
             Instance = this;
@@ -43,7 +41,6 @@ namespace BreakoutClone
 
         protected override void Initialize()
         {
-            entityManager = new EntityManager();
 
             base.Initialize();
         }
@@ -52,13 +49,20 @@ namespace BreakoutClone
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            string[] menuItems = { "Start Game", "High Scores", "End Game" };
-
-
-
             Assets.Load(Content);
 
-            entityManager.CreateEntities();
+            startScreen = new StartScreen(this, spriteBatch, Content.Load<SpriteFont>("menufont"), Content.Load<Texture2D>("background"));
+            Components.Add(startScreen);
+            startScreen.Hide();
+
+            actionScreen = new ActionScreen(this, spriteBatch, Content.Load<Texture2D>("background"));
+            Components.Add(actionScreen);
+            actionScreen.Hide();
+
+            activeScreen = startScreen;
+            activeScreen.Show();
+
+
         }
 
         protected override void UnloadContent()
@@ -73,9 +77,36 @@ namespace BreakoutClone
                 return;
             }
 
-            entityManager.Update();
+            keyboardState = Keyboard.GetState();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                this.Exit();
+
+            if (activeScreen == startScreen)
+            {
+                if (CheckKey(Keys.Enter))
+                {
+                    if (startScreen.SelectedIndex == 0)
+                    {
+                        activeScreen.Hide();
+                        activeScreen = actionScreen;
+                        activeScreen.Show();
+                    }
+                    if (startScreen.SelectedIndex == 1)
+                    {
+                        this.Exit();
+                    }
+                }
+            }
 
             base.Update(gameTime);
+            oldKeyboardState = keyboardState;
+
+        }
+
+        private bool CheckKey(Keys theKey)
+        {
+            return keyboardState.IsKeyUp(theKey) &&
+                oldKeyboardState.IsKeyDown(theKey);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -83,7 +114,6 @@ namespace BreakoutClone
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            entityManager.Draw(spriteBatch);
             base.Draw(gameTime);
 
             spriteBatch.End();
