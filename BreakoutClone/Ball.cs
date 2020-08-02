@@ -182,46 +182,112 @@ namespace BreakoutClone
         {
             Rectangle ballHitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
-            List<Rectangle> paddleBarSections = new List<Rectangle>();
-
-            // Chop the paddle into five equal sections.
-            for (int i = 0; i < 5; i++)
+            if (ballHitbox.Intersects(PaddleHitbox))
             {
-                paddleBarSections.Add(new Rectangle(PaddleHitbox.X + i * (PaddleHitbox.Width / 5), PaddleHitbox.Y, PaddleHitbox.Width / 5, PaddleHitbox.Height));
-            }
-
-            // Check if ball has hit each paddle section.
-
-            for (int i = 0; i < paddleBarSections.Count; i++)
-            {
-                if (ballHitbox.Intersects(paddleBarSections[i]))
+                int offset = Convert.ToInt32((PaddleHitbox.Width - (PaddleHitbox.X + PaddleHitbox.Width - Position.X + Width / 2)));
+                offset /= 5;
+                if (offset < 0)
                 {
-                    // Switch on which rectangle it is we just hit.
-                    switch (i)
-                    {
-                        case 0: // leftmost
-                            XVelocity = -5;
-                            break;
-                        case 1:
-                            XVelocity = -3;
-                            break;
-                        case 2: // center
-                            XVelocity *= -1;
-                            break;
-                        case 3:
-                            XVelocity = 3;
-                            break;
-                        case 4: // rightmost
-                            XVelocity = 5;
-                            break;
-                        default:
-                            break;
-                    }
-
-                    YVelocity *= -1;
-                    Position.Y = paddleBarSections[i].Top - Height;
+                    offset = 0;
                 }
+                switch (offset)
+                {
+                    case 0:
+                        XVelocity = -6;
+                        break;
+                    case 1:
+                        XVelocity = -5;
+                        break;
+                    case 2:
+                        XVelocity = -4;
+                        break;
+                    case 3:
+                        XVelocity = -3;
+                        break;
+                    case 4:
+                        XVelocity = -2;
+                        break;
+                    case 5:
+                        XVelocity = -1;
+                        break;
+                    case 6:
+                        XVelocity = 1;
+                        break;
+                    case 7:
+                        XVelocity = 2;
+                        break;
+                    case 8:
+                        XVelocity = 3;
+                        break;
+                    case 9:
+                        XVelocity = 4;
+                        break;
+                    case 10:
+                        XVelocity = 5;
+                        break;
+                    default:
+                        XVelocity = 6;
+                        break;
+                }
+
+                YVelocity *= -1;
+                Position.Y = PaddleHitbox.Y - Height + 1;
             }
+
+
+
+            //List<Rectangle> paddleBarSections = new List<Rectangle>();
+
+            //// Chop the paddle into five equal sections.
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    paddleBarSections.Add(new Rectangle(PaddleHitbox.X + i * (PaddleHitbox.Width / 5), PaddleHitbox.Y, PaddleHitbox.Width / 5, PaddleHitbox.Height));
+            //}
+
+            //// Check if ball has hit each paddle section.
+
+            //for (int i = 0; i < paddleBarSections.Count; i++)
+            //{
+            //    if (ballHitbox.Intersects(paddleBarSections[i]))
+            //    {
+            //        Position.Y = paddleBarSections[i].Top - Height - 1;
+
+            //        // TODO: make the ball smaller and see if it still 'sticks'.
+            //        // Weird behaviour might be because the ball is bigger than a paddlebar section.
+
+            //        YVelocity *= -1;
+            //        // Switch on which rectangle it is we just hit.
+            //        switch (i)
+            //        {
+            //            case 0: // leftmost
+            //                XVelocity = -5;
+            //                Console.WriteLine("hit 1");
+            //                break;
+            //            case 1:
+            //                XVelocity = -3;
+            //                Console.WriteLine("hit 2");
+
+            //                break;
+            //            case 2: // center
+            //                XVelocity *= -1;
+            //                Console.WriteLine("hit 3");
+            //                break;
+            //            case 3:
+            //                XVelocity = -3;
+            //                Console.WriteLine("hit 4");
+
+            //                break;
+            //            case 4: // rightmost
+            //                Console.WriteLine("hit 5");
+            //                XVelocity = -5;
+            //                break;
+            //            default:
+            //                break;
+            //        }
+
+
+            //    }
+            //}
         }
 
         private void CheckForWalls()
