@@ -29,8 +29,6 @@ namespace BreakoutClone
 
         public bool IsActive { get; set; }
 
-        private MouseState oldMouseState;
-
         public Ball(Vector2 position, float XVelocity, float YVelocity)
         {
             Position = position;
@@ -60,11 +58,6 @@ namespace BreakoutClone
             {
                 Move(wall);
             }
-            else
-            {
-                CheckForLaunch();
-            }
-
         }
 
         private void Move(Wall wall)
@@ -94,21 +87,6 @@ namespace BreakoutClone
         {
             IsActive = false;
             Position = OriginalPosition;
-        }
-
-        private void CheckForLaunch()
-        {
-            MouseState newMouseState = Mouse.GetState();
-
-            // LMB was down and is now released, i.e. a left click.
-            bool MouseClick = newMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed;
-
-            if (MouseClick)
-            {
-                Launch();
-            }
-
-            oldMouseState = newMouseState;
         }
 
         public void Launch()

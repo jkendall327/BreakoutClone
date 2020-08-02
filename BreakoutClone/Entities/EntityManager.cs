@@ -62,7 +62,14 @@ namespace BreakoutClone
         public void HandleInput(MouseState mouseState)
         {
             Player.MoveTo(mouseState.X);
+        }
 
+        public void HandleInput(bool WasThereAClick)
+        {
+            if (WasThereAClick)
+            {
+                ActiveBall.Launch();
+            }
         }
 
         public void Update()

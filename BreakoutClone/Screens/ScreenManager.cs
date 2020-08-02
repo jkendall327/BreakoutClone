@@ -137,6 +137,13 @@ namespace BreakoutClone.Screens
                 }
             }
 
+            // TODO: making an overload of HandleInput that accepts a bool is
+            // very ugly. Way to improve this?
+            if (newMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed)
+            {
+                actionScreen.EntitiesManager.HandleInput(true);
+            }
+
             oldMouseState = newMouseState;
         }
 
