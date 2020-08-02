@@ -15,9 +15,9 @@ namespace BreakoutClone
 
         Vector2 Position;
 
-        public float XVelocity { get; set; }
+        public double XVelocity { get; set; }
 
-        public float YVelocity { get; set; }
+        public double YVelocity { get; set; }
 
         public Rectangle PaddleHitbox { get; set; }
 
@@ -50,10 +50,15 @@ namespace BreakoutClone
 
         public void Update(Wall wall)
         {
+            if (isActive == false)
+            {
+
+            }
+
             if (isActive)
             {
-                Position.X += XVelocity;
-                Position.Y += YVelocity;
+                Position.X += (float)XVelocity;
+                Position.Y += (float)YVelocity;
 
                 CheckForWalls();
 
@@ -92,7 +97,9 @@ namespace BreakoutClone
                 if (brick.isAlive && ballHitbox.Intersects(brick.Hitbox))
                 {
                     brick.isAlive = false;
-                    YVelocity *= -1;
+
+                    // Invert direction and increase speed.
+                    YVelocity *= -1.3;
 
                     // Breaking out of the loop is what stops the ball
                     // from destroying multiple bricks at once.
@@ -118,18 +125,22 @@ namespace BreakoutClone
 
         private void CheckForWalls()
         {
+            // Velocity multiplied by -0.9 to slow down ball
+            // on wall hit. 
+            // TODO: ball could hit zero velocity.
+
             // Hit left wall
             if (Position.X < 0)
             {
                 Position.X = 0;
-                XVelocity *= -1;
+                XVelocity *= -0.9;
             }
 
             // Hit right wall
             if (Position.X + Width > Breakout.ScreenSize.X)
             {
                 Position.X = Breakout.ScreenSize.X - Width;
-                XVelocity *= -1;
+                XVelocity *= -0.9;
             }
 
             // Hit top of screen
@@ -137,7 +148,7 @@ namespace BreakoutClone
             if (Position.Y < 0)
             {
                 Position.Y = 0;
-                YVelocity *= -1;
+                YVelocity *= -0.9;
             }
 
             // Hit bottom of screen
