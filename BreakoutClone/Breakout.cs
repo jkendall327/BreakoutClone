@@ -12,6 +12,8 @@ namespace BreakoutClone
         readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        MenuComponent menuComponent;
+
         public static Breakout Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
@@ -37,13 +39,17 @@ namespace BreakoutClone
         {
             entityManager = new EntityManager();
 
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            string[] menuItems = { "Start Game", "High Scores", "End Game" };
+
+            menuComponent = new MenuComponent(this, spriteBatch, Content.Load<SpriteFont>("menufont"), menuItems);
+            Components.Add(menuComponent);
 
             Assets.Load(Content);
 
@@ -73,9 +79,10 @@ namespace BreakoutClone
 
             spriteBatch.Begin();
             entityManager.Draw(spriteBatch);
+            base.Draw(gameTime);
+
             spriteBatch.End();
 
-            base.Draw(gameTime);
         }
     }
 }
