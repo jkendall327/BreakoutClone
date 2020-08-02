@@ -39,6 +39,9 @@ namespace BreakoutClone
             Updaters = new List<IUpdate> { Player, ActiveWall };
         }
 
+        // The HandleInput methods receive raw input from ScreenManager
+        // and translate them into actions for entities to take.
+
         public void HandleInput(Keys key)
         {
             if (key == Keys.Right)

@@ -84,9 +84,19 @@ namespace BreakoutClone
             PaddleMoved.Invoke(this, Hitbox);
         }
 
-        public void Draw(SpriteBatch spritebatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spritebatch.Draw(Image, Position, Color.White);
+            Color[] data = new Color[Hitbox.Width * Hitbox.Height];
+            Texture2D rectTexture = new Texture2D(Breakout.Instance.GraphicsDevice, Hitbox.Width, Hitbox.Height);
+            
+            for (int i = 0; i < data.Length; ++i)
+                data[i] = Color.White;
+
+            rectTexture.SetData(data);
+            var position = new Vector2(Hitbox.Left, Hitbox.Top);
+
+            spriteBatch.Draw(rectTexture, position, Color.White);
+
         }
     }
 }

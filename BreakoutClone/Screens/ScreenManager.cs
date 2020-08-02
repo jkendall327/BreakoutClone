@@ -147,6 +147,11 @@ namespace BreakoutClone.Screens
             oldMouseState = newMouseState;
         }
 
+        /* 
+         * TODO: Would be nice if you could click on menu options.
+         * Make rectangles in the menuComponent class?
+         */
+
         private void HandleOptionsScreenInput()
         {
             if (CheckKey(Keys.Escape))
