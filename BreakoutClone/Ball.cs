@@ -22,7 +22,6 @@ namespace BreakoutClone
 
         public Rectangle PaddleHitbox { get; set; }
 
-        private readonly Random random = new Random();
 
         bool isActive = true;
 
@@ -109,8 +108,8 @@ namespace BreakoutClone
             isActive = true;
 
             // TODO: both could return zero, i.e. stationary ball.
-            bool newXDirection = random.Next() % 2 == 0;
-            bool newYDirection = random.Next() % 2 == 0;
+            bool newXDirection = new Random().Next() % 2 == 0;
+            bool newYDirection = new Random().Next() % 2 == 0;
 
             if (newXDirection)
             {
