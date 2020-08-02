@@ -44,10 +44,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ActionScreen.cs" />
+    <Compile Include="Screens\ActionScreen.cs" />
     <Compile Include="Content\Assets.cs" />
     <Compile Include="Entities\Ball.cs" />
-    <Compile Include="GameScreen.cs" />
+    <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Entities\Wall.cs" />
     <Compile Include="Interfaces\IUpdate.cs" />
@@ -56,10 +56,10 @@
     <Compile Include="Entities\Brick.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
-    <Compile Include="MenuComponent.cs" />
+    <Compile Include="Screens\MenuComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartScreen.cs" />
+    <Compile Include="Screens\StartScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

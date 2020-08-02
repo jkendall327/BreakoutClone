@@ -24,6 +24,8 @@ namespace BreakoutClone
 		float width = 0f;
 		float height = 0f;
 
+		float fontScale = 3;
+
 		public int SelectedIndex
 		{
 			get { return selectedIndex; }
@@ -109,7 +111,7 @@ namespace BreakoutClone
 					tint = highlight;
 				else
 					tint = normal;
-				spriteBatch.DrawString(spriteFont, menuItems[i], location, tint);
+				spriteBatch.DrawString(spriteFont, menuItems[i], location, tint, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
 				location.Y += spriteFont.LineSpacing + 5;
 			}
 		}
