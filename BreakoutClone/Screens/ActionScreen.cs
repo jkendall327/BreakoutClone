@@ -15,7 +15,9 @@ namespace BreakoutClone
 		Texture2D image;
 		Rectangle imageRectangle;
 
-		EntityManager entityManager;
+        public EntityManager entityManager { get; private set; }
+
+        //EntityManager entityManager;
 
 		public ActionScreen(Game game, SpriteBatch spriteBatch, Texture2D image) : base(game, spriteBatch)
 		{
@@ -24,7 +26,6 @@ namespace BreakoutClone
 
 			entityManager = new EntityManager();
 			entityManager.CreateEntities();
-
 		}
 
 		public override void Update(GameTime gameTime)

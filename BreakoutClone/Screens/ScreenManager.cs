@@ -100,7 +100,7 @@ namespace BreakoutClone.Screens
             {
                 ChangeScreen(startScreen);
             }
-            
+            //actionScreen.entityManager.
         }
 
         private void HandleOptionsScreenInput()
