@@ -20,6 +20,7 @@ namespace BreakoutClone
 
         Vector2 OriginalPosition = new Vector2(Breakout.ScreenSize.X / 2, Breakout.ScreenSize.Y / 2);
 
+        // TODO: Clamp the velocities here in the set functions, it's what they're for! 
         public double XVelocity { get; set; }
 
         public double YVelocity { get; set; }

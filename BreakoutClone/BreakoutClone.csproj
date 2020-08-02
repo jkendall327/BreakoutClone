@@ -44,16 +44,16 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets.cs" />
-    <Compile Include="Ball.cs" />
+    <Compile Include="Content\Assets.cs" />
+    <Compile Include="Entities\Ball.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="Wall.cs" />
-    <Compile Include="IUpdate.cs" />
-    <Compile Include="Paddle.cs" />
+    <Compile Include="Entities\Wall.cs" />
+    <Compile Include="Interfaces\IUpdate.cs" />
+    <Compile Include="Entities\Paddle.cs" />
     <Compile Include="Breakout.cs" />
-    <Compile Include="Brick.cs" />
+    <Compile Include="Entities\Brick.cs" />
     <Compile Include="EntityManager.cs" />
-    <Compile Include="IDrawable.cs" />
+    <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
