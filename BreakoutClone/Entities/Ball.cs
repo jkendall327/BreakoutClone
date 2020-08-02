@@ -27,17 +27,13 @@ namespace BreakoutClone
 
         public Rectangle PaddleHitbox { get; set; }
 
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
 
         private MouseState oldMouseState;
         private KeyboardState oldKeyboardState;
 
         public Ball(Vector2 position, float XVelocity, float YVelocity)
         {
-            //dummy for debugger;
-
-            PaddleHitbox = new Rectangle((int)(Breakout.ScreenSize.X / 2), 600, Assets.Paddle.Width, Assets.Paddle.Height);
-
             Position = position;
 
             this.XVelocity = XVelocity;
@@ -61,7 +57,7 @@ namespace BreakoutClone
 
         public void Update(Wall wall)
         {
-            if (isActive)
+            if (IsActive)
             {
                 Move(wall);
             }
@@ -97,7 +93,7 @@ namespace BreakoutClone
 
         public void Reset()
         {
-            isActive = false;
+            IsActive = false;
             Position = OriginalPosition;
         }
 
@@ -122,7 +118,7 @@ namespace BreakoutClone
 
         public void Launch()
         {
-            isActive = true;
+            IsActive = true;
 
             bool newXDirection = new Random().Next() % 2 == 0;
             bool newYDirection = new Random().Next() % 2 == 0;
@@ -271,7 +267,7 @@ namespace BreakoutClone
             {
                 Position.X = Breakout.ScreenSize.X / 2;
                 Position.Y = Breakout.ScreenSize.Y / 2;
-                isActive = false;
+                IsActive = false;
             }
         }
 

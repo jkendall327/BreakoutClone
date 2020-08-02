@@ -97,10 +97,13 @@ namespace BreakoutClone.Screens
 
         private void HandleActionScreenInput()
         {
+            // Input relating to screens, not the actual game content.
             if (CheckKey(Keys.Escape))
             {
                 ChangeScreen(startScreen);
             }
+
+            // Checking mouse and keyboard input.
 
             CheckMouse();
 
@@ -108,12 +111,12 @@ namespace BreakoutClone.Screens
 
             if (keyboardState.IsKeyDown(Keys.Right))
             {
-                actionScreen.entityManager.HandleInput(Keys.Right);
+                actionScreen.EntitiesManager.HandleInput(Keys.Right);
             }
 
             if (keyboardState.IsKeyDown(Keys.Left))
             {
-                actionScreen.entityManager.HandleInput(Keys.Left);
+                actionScreen.EntitiesManager.HandleInput(Keys.Left);
             }
         }
 
@@ -125,7 +128,7 @@ namespace BreakoutClone.Screens
             {
                 if (Breakout.Viewport.Bounds.Contains(newMouseState.Position))
                 {
-                    actionScreen.entityManager.HandleInput(newMouseState);
+                    actionScreen.EntitiesManager.HandleInput(newMouseState);
                 }
             }
 

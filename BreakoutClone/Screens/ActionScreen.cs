@@ -11,38 +11,32 @@ namespace BreakoutClone
 {
 	class ActionScreen : GameScreen
 	{
-		KeyboardState keyboardState;
 		Texture2D image;
 		Rectangle imageRectangle;
 
-        public EntityManager entityManager { get; private set; }
-
-        //EntityManager entityManager;
+        public EntityManager EntitiesManager { get; private set; }
 
 		public ActionScreen(Game game, SpriteBatch spriteBatch, Texture2D image) : base(game, spriteBatch)
 		{
 			this.image = image;
 			imageRectangle = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);
 
-			entityManager = new EntityManager();
-			entityManager.CreateEntities();
+			EntitiesManager = new EntityManager();
+			EntitiesManager.CreateEntities();
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
 
-			entityManager.Update();
-
-			keyboardState = Keyboard.GetState();
-
+			EntitiesManager.Update();
 		}
 
 		public override void Draw(GameTime gameTime)
 		{
 			spriteBatch.Draw(image, imageRectangle, Color.White);
 			base.Draw(gameTime);
-			entityManager.Draw(spriteBatch);
+			EntitiesManager.Draw(spriteBatch);
 
 		}
 	}

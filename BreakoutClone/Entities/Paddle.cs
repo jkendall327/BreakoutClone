@@ -41,6 +41,7 @@ namespace BreakoutClone
 
         public void MoveTo(float xCoordinate)
         {
+            // Clamp on screen.
             if (xCoordinate + Width > Breakout.ScreenSize.X)
             {
                 Position.X = Breakout.ScreenSize.X - Width;

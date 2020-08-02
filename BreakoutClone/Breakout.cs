@@ -11,7 +11,7 @@ namespace BreakoutClone
     /// </summary>
     public class Breakout : Game
     {
-        readonly GraphicsDeviceManager graphics;
+        private readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         ScreenManager screenManager;
