@@ -118,6 +118,11 @@ namespace BreakoutClone.Screens
             {
                 actionScreen.EntitiesManager.HandleInput(Keys.Left);
             }
+
+            if (CheckKey(Keys.Space))
+            {
+                actionScreen.EntitiesManager.HandleInput(Keys.Space);
+            }
         }
 
         private void CheckMouse()

@@ -30,7 +30,6 @@ namespace BreakoutClone
         public bool IsActive { get; set; }
 
         private MouseState oldMouseState;
-        private KeyboardState oldKeyboardState;
 
         public Ball(Vector2 position, float XVelocity, float YVelocity)
         {
@@ -100,20 +99,16 @@ namespace BreakoutClone
         private void CheckForLaunch()
         {
             MouseState newMouseState = Mouse.GetState();
-            KeyboardState newKeyboardState = Keyboard.GetState();
 
             // LMB was down and is now released, i.e. a left click.
             bool MouseClick = newMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed;
-            // Spacebar was done and is now up, i.e. it's been hit.
-            bool SpacebarHit = newKeyboardState.IsKeyUp(Keys.Space) && oldKeyboardState.IsKeyDown(Keys.Space);
 
-            if ((MouseClick || SpacebarHit))
+            if (MouseClick)
             {
                 Launch();
             }
 
             oldMouseState = newMouseState;
-            oldKeyboardState = newKeyboardState;
         }
 
         public void Launch()

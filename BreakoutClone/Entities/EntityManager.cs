@@ -49,11 +49,20 @@ namespace BreakoutClone
             {
                 Player.MoveLeft();
             }
+
+            if (key == Keys.Space)
+            {
+                if (ActiveBall.IsActive == false)
+                {
+                    ActiveBall.Launch();
+                }
+            }
         }
 
         public void HandleInput(MouseState mouseState)
         {
             Player.MoveTo(mouseState.X);
+
         }
 
         public void Update()
