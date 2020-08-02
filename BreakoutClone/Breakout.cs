@@ -14,17 +14,7 @@ namespace BreakoutClone
         readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        KeyboardState keyboardState;
-        KeyboardState oldKeyboardState;
-
-        GameScreen activeScreen;
-        StartScreen startScreen;
-        ActionScreen actionScreen;
-        OptionsScreen optionsScreen;
-
         ScreenManager screenManager;
-
-        private Input input;
 
         public static Breakout Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }

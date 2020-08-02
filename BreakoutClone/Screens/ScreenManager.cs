@@ -62,41 +62,48 @@ namespace BreakoutClone.Screens
         public void CheckInput()
         {
             keyboardState = Keyboard.GetState();
+            
+            //TODO: next task is drawing the paddle dynamically so the size can be changed mid-game.
 
-            if (activeScreen == startScreen)
+            switch (activeScreen)
             {
-                if (CheckKey(Keys.Enter))
-                {
-                    if (startScreen.SelectedIndex == 0)
+                case ActionScreen a:
+                    if (CheckKey(Keys.Escape))
                     {
-                        ChangeScreen(actionScreen);
+                        ChangeScreen(startScreen);
                     }
-                    if (startScreen.SelectedIndex == 1)
+                    break;
+                case OptionsScreen o:
+                    if (CheckKey(Keys.Escape))
                     {
-                        ChangeScreen(optionsScreen);
+                        ChangeScreen(startScreen);
                     }
-                    if (startScreen.SelectedIndex == 2)
+                    break;
+                case StartScreen s:
+                    if (CheckKey(Keys.Enter))
                     {
-                        game.Exit();
+                        switch (startScreen.SelectedIndex)
+                        {
+                            case 0:
+                                ChangeScreen(actionScreen);
+                                break;
+                            case 1:
+                                ChangeScreen(optionsScreen);
+                                break;
+                            case 2:
+                                game.Exit();
+                                break;
+                            default:
+                                break;
+                        }
+
                     }
-                }
-            }
-
-            if (activeScreen == optionsScreen)
-            {
-                if (CheckKey(Keys.Escape))
-                {
-                    ChangeScreen(startScreen);
-
-                }
-            }
-
-            if (activeScreen == actionScreen)
-            {
-                if (CheckKey(Keys.Escape))
-                {
-                    ChangeScreen(optionsScreen);
-                }
+                    break;
+                default:
+                    Console.WriteLine("ERROR LMAO");
+                    break;
+                case null:
+                    throw new ArgumentNullException(nameof(activeScreen));
             }
 
             oldKeyboardState = keyboardState;
