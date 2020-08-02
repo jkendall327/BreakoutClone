@@ -18,13 +18,15 @@ namespace BreakoutClone
 
         Vector2 Position;
 
+        Vector2 OriginalPosition = new Vector2(Breakout.ScreenSize.X / 2, Breakout.ScreenSize.Y / 2);
+
         public double XVelocity { get; set; }
 
         public double YVelocity { get; set; }
 
         public Rectangle PaddleHitbox { get; set; }
 
-        bool isActive = true;
+        public bool isActive { get; set; }
 
         private MouseState oldMouseState;
         private KeyboardState oldKeyboardState;
@@ -92,6 +94,12 @@ namespace BreakoutClone
             }
         }
 
+        public void Reset()
+        {
+            isActive = false;
+            Position = OriginalPosition;
+        }
+
         private void CheckForLaunch()
         {
             MouseState newMouseState = Mouse.GetState();
@@ -153,6 +161,9 @@ namespace BreakoutClone
                 if (brick.IsAlive && ballHitbox.Intersects(brick.Hitbox))
                 {
                     brick.IsAlive = false;
+
+                    wall.BricksLeft -= 1;
+                    Console.WriteLine(wall.BricksLeft);
 
                     // Invert direction and increase speed.
                     YVelocity *= -1.3;

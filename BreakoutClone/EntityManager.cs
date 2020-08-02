@@ -24,7 +24,8 @@ namespace BreakoutClone
 
         public void CreateEntities()
         {
-            wall = new Wall(0, 100);
+            wall = new Wall();
+            wall.Create(0, 100);
 
             player = new Paddle(new Vector2(Breakout.ScreenSize.X / 2, 600));
 
@@ -37,6 +38,7 @@ namespace BreakoutClone
             drawables.Add(ball);
 
             updaters.Add(player);
+            updaters.Add(wall);
         }
 
         public void Update()
@@ -46,7 +48,16 @@ namespace BreakoutClone
                 updatable.Update();
             }
 
+            if (wall.BricksLeft < 29)
+            {
+                wall.Create(0, 100);
+
+                ball.Reset();
+            }
+
             ball.Update(wall);
+
+
         }
 
         public void Draw(SpriteBatch spritebatch)

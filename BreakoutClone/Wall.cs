@@ -1,15 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace BreakoutClone.Content
 {
-    class Wall : IDrawable
+    class Wall : IDrawable, IUpdate
     {
         public Brick[,] BrickWall { get; set; }
 
-        public Wall(float x, float y)
+        public int BricksLeft { get; set; }
+
+        public Wall()
+        {
+        }
+
+        public void Create(float x, float y)
         {
             BrickWall = new Brick[3, 10];
+
+            BricksLeft = BrickWall.Length;
 
             // Loop for setting the columns.
             for (int i = 0; i < 3; i++)
@@ -30,6 +39,7 @@ namespace BreakoutClone.Content
                 }
 
             }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -41,5 +51,9 @@ namespace BreakoutClone.Content
 
         }
 
+        public void Update()
+        {
+
+        }
     }
 }
