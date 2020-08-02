@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace BreakoutClone
 {
@@ -22,10 +23,10 @@ namespace BreakoutClone
 
         public Rectangle PaddleHitbox { get; set; }
 
-
         bool isActive = true;
 
         private MouseState oldMouseState;
+        private KeyboardState oldKeyboardState;
 
         public Ball(Vector2 position, float XVelocity, float YVelocity)
         {
@@ -52,55 +53,56 @@ namespace BreakoutClone
 
         public void Update(Wall wall)
         {
+            if (isActive)
+            {
+                Move(wall);
+            }
+            else
+            {
+                CheckForLaunch();
+            }
+
+        }
+
+        private void Move(Wall wall)
+        {
+            ClampSpeed();
+
+            ChangePosition();
+
+            CheckForWalls();
+
+            // Some basic checks so it's not checking for collision literally every frame.
+            // Bottom half of screen, check for paddle. Top half, check for bricks.
+
+            if (Position.Y > 200)
+            {
+                CheckForPaddle();
+            }
+
+            if (Position.Y < 200)
+            {
+                CheckForBrick(wall);
+            }
+        }
+
+        private void CheckForLaunch()
+        {
             MouseState newMouseState = Mouse.GetState();
-            //process left-click
-            if (newMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed && oldMouseState.X == newMouseState.X && oldMouseState.Y == newMouseState.Y && isActive == false)
+            KeyboardState newKeyboardState = Keyboard.GetState();
+
+            // LMB was down and is now released, i.e. a left click.
+            bool MouseClick = newMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed;
+            // Spacebar was done and is now up, i.e. it's been hit.
+            bool SpacebarHit = newKeyboardState.IsKeyUp(Keys.Space) && oldKeyboardState.IsKeyDown(Keys.Space);
+
+            if ((MouseClick || SpacebarHit))
             {
                 Launch();
             }
 
-            if (isActive)
-            {
-                ClampSpeed();
-
-                ChangePosition();
-
-                CheckForWalls();
-
-                // Some basic checks so it's not checking for collision literally every frame.
-                // Bottom half of screen, check for paddle. Top half, check for bricks.
-
-                if (Position.Y > 200)
-                {
-                    CheckForPaddle();
-                }
-
-                if (Position.Y < 200)
-                {
-                    CheckForBrick(wall);
-                }
-            }
-
             oldMouseState = newMouseState;
-        }
-
-        private void ChangePosition()
-        {
-            Position.X += (float)XVelocity;
-            Position.Y += (float)YVelocity;
-        }
-
-        private void ClampSpeed()
-        {
-            if (XVelocity > 10)
-            {
-                XVelocity = 10;
-            }
-
-            if (YVelocity > 10)
-            {
-                YVelocity = 10;
-            }
+            oldKeyboardState = newKeyboardState;
         }
 
         public void Launch()
@@ -129,6 +131,25 @@ namespace BreakoutClone
                 YVelocity = -3;
             }
 
+        }
+
+        private void ChangePosition()
+        {
+            Position.X += (float)XVelocity;
+            Position.Y += (float)YVelocity;
+        }
+
+        private void ClampSpeed()
+        {
+            if (XVelocity > 10)
+            {
+                XVelocity = 10;
+            }
+
+            if (YVelocity > 10)
+            {
+                YVelocity = 10;
+            }
         }
 
         private void CheckForBrick(Wall wall)
