@@ -52,6 +52,13 @@ namespace BreakoutClone.Screens
             activeScreen.Show();
         }
 
+        private void ChangeScreen(GameScreen screen)
+        {
+            activeScreen.Hide();
+            activeScreen = screen;
+            activeScreen.Show();
+        }
+
         public void CheckInput()
         {
             keyboardState = Keyboard.GetState();
@@ -62,15 +69,11 @@ namespace BreakoutClone.Screens
                 {
                     if (startScreen.SelectedIndex == 0)
                     {
-                        activeScreen.Hide();
-                        activeScreen = actionScreen;
-                        activeScreen.Show();
+                        ChangeScreen(actionScreen);
                     }
                     if (startScreen.SelectedIndex == 1)
                     {
-                        activeScreen.Hide();
-                        activeScreen = optionsScreen;
-                        activeScreen.Show();
+                        ChangeScreen(optionsScreen);
                     }
                     if (startScreen.SelectedIndex == 2)
                     {
@@ -83,9 +86,8 @@ namespace BreakoutClone.Screens
             {
                 if (CheckKey(Keys.Escape))
                 {
-                    activeScreen.Hide();
-                    activeScreen = startScreen;
-                    activeScreen.Show();
+                    ChangeScreen(startScreen);
+
                 }
             }
 
@@ -93,9 +95,7 @@ namespace BreakoutClone.Screens
             {
                 if (CheckKey(Keys.Escape))
                 {
-                    activeScreen.Hide();
-                    activeScreen = optionsScreen;
-                    activeScreen.Show();
+                    ChangeScreen(optionsScreen);
                 }
             }
 

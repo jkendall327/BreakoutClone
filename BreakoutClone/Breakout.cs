@@ -79,67 +79,12 @@ namespace BreakoutClone
 
         }
 
-        private void CheckInput()
-        {
-            keyboardState = Keyboard.GetState();
-
-            if (activeScreen == startScreen)
-            {
-                if (CheckKey(Keys.Enter))
-                {
-                    if (startScreen.SelectedIndex == 0)
-                    {
-                        activeScreen.Hide();
-                        activeScreen = actionScreen;
-                        activeScreen.Show();
-                    }
-                    if (startScreen.SelectedIndex == 1)
-                    {
-                        activeScreen.Hide();
-                        activeScreen = optionsScreen;
-                        activeScreen.Show();
-                    }
-                    if (startScreen.SelectedIndex == 2)
-                    {
-                        this.Exit();
-                    }
-                }
-            }
-
-            if (activeScreen == optionsScreen)
-            {
-                if (CheckKey(Keys.Escape))
-                {
-                    activeScreen.Hide();
-                    activeScreen = startScreen;
-                    activeScreen.Show();
-                }
-            }
-
-            if (activeScreen == actionScreen)
-            {
-                if (CheckKey(Keys.Escape))
-                {
-                    activeScreen.Hide();
-                    activeScreen = optionsScreen;
-                    activeScreen.Show();
-                }
-            }
-
-            oldKeyboardState = keyboardState;
-        }
-
-        private bool CheckKey(Keys theKey)
-        {
-            return keyboardState.IsKeyUp(theKey) &&
-                oldKeyboardState.IsKeyDown(theKey);
-        }
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
+
             base.Draw(gameTime);
 
             spriteBatch.End();

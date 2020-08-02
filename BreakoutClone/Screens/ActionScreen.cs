@@ -35,8 +35,6 @@ namespace BreakoutClone
 
 			keyboardState = Keyboard.GetState();
 
-			if (keyboardState.IsKeyDown(Keys.Escape))
-				game.Exit();
 		}
 
 		public override void Draw(GameTime gameTime)
