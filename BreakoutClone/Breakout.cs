@@ -83,11 +83,15 @@ namespace BreakoutClone
                 return;
             }
 
-            keyboardState = Keyboard.GetState();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            CheckInput();
 
-            input.Update(activeScreen);
+            base.Update(gameTime);
+
+        }
+
+        private void CheckInput()
+        {
+            keyboardState = Keyboard.GetState();
 
             if (activeScreen == startScreen)
             {
@@ -122,9 +126,17 @@ namespace BreakoutClone
                 }
             }
 
-            base.Update(gameTime);
-            oldKeyboardState = keyboardState;
+            if (activeScreen == actionScreen)
+            {
+                if (CheckKey(Keys.Escape))
+                {
+                    activeScreen.Hide();
+                    activeScreen = optionsScreen;
+                    activeScreen.Show();
+                }
+            }
 
+            oldKeyboardState = keyboardState;
         }
 
         private bool CheckKey(Keys theKey)

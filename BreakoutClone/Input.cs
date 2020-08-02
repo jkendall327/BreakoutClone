@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,51 +10,50 @@ namespace BreakoutClone
 {
     public class Input
     {
-        private GameScreen activeScreen;
-        public Input()
-        {
+        //private KeyboardState oldKeyboardState;
+        //private KeyboardState newKeyboardState;
 
-        }
+        //private GameScreen activeScreen;
+        //public Input()
+        //{
 
-        public void Update(GameScreen activeScreen)
-        {
-            this.activeScreen = activeScreen;
+        //}
 
-            if (activeScreen is StartScreen)
-            {
-                Console.WriteLine("starting screen");
-            }
-            if (activeScreen is OptionsScreen)
-            {
-                Console.WriteLine("options");
-            }
-            if (activeScreen is ActionScreen)
-            {
-                Console.WriteLine("gaming");
-            }
+        //private bool CheckKey(Keys theKey)
+        //{
+        //    return newKeyboardState.IsKeyUp(theKey) &&
+        //        oldKeyboardState.IsKeyDown(theKey);
+        //}
 
-            //if (activeScreen == startScreen)
-            //{
-            //    if (CheckKey(Keys.Enter))
-            //    {
-            //        if (startScreen.SelectedIndex == 0)
-            //        {
-            //            activeScreen.Hide();
-            //            activeScreen = actionScreen;
-            //            activeScreen.Show();
-            //        }
-            //        if (startScreen.SelectedIndex == 1)
-            //        {
-            //            activeScreen.Hide();
-            //            activeScreen = optionsScreen;
-            //            activeScreen.Show();
-            //        }
-            //        if (startScreen.SelectedIndex == 2)
-            //        {
-            //            this.Exit();
-            //        }
-            //    }
-            //}
-        }
+        //public void Update(GameScreen activeScreen)
+        //{
+        //    newKeyboardState = Keyboard.GetState();
+
+        //    this.activeScreen = activeScreen;
+
+        //    if (activeScreen is StartScreen)
+        //    {
+        //        Console.WriteLine("starting screen");
+        //    }
+
+        //    if (activeScreen is OptionsScreen)
+        //    {
+        //        if (CheckKey(Keys.Escape))
+        //        {
+        //            activeScreen.Hide();
+        //            activeScreen = startScreen;
+        //            activeScreen.Show();
+        //        }
+        //        Console.WriteLine("options");
+        //    }
+
+        //    if (activeScreen is ActionScreen)
+        //    {
+        //        Console.WriteLine("gaming");
+        //    }
+
+
+        //    oldKeyboardState = newKeyboardState;
+        //}
     }
 }
