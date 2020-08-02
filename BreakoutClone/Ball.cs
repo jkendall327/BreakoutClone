@@ -62,14 +62,14 @@ namespace BreakoutClone
 
             if (isActive)
             {
-                Position.X += (float)XVelocity;
-                Position.Y += (float)YVelocity;
+                ClampSpeed();
+
+                ChangePosition();
 
                 CheckForWalls();
 
                 // Some basic checks so it's not checking for collision literally every frame.
-                // Bototm half of screen, check for paddle.
-                // Top half, check for bricks.
+                // Bottom half of screen, check for paddle. Top half, check for bricks.
 
                 if (Position.Y > 200)
                 {
@@ -79,10 +79,29 @@ namespace BreakoutClone
                 if (Position.Y < 200)
                 {
                     CheckForBrick(wall);
-                } 
+                }
             }
 
             oldMouseState = newMouseState;
+        }
+
+        private void ChangePosition()
+        {
+            Position.X += (float)XVelocity;
+            Position.Y += (float)YVelocity;
+        }
+
+        private void ClampSpeed()
+        {
+            if (XVelocity > 10)
+            {
+                XVelocity = 10;
+            }
+
+            if (YVelocity > 10)
+            {
+                YVelocity = 10;
+            }
         }
 
         public void Launch()
@@ -90,8 +109,27 @@ namespace BreakoutClone
             isActive = true;
 
             // TODO: both could return zero, i.e. stationary ball.
-            XVelocity = random.Next(-3, 3);
-            YVelocity = random.Next(-3, 3);
+            bool newXDirection = random.Next() % 2 == 0;
+            bool newYDirection = random.Next() % 2 == 0;
+
+            if (newXDirection)
+            {
+                XVelocity = 3;
+            }
+            else
+            {
+                XVelocity = -3;
+            }
+
+            if (newYDirection)
+            {
+                YVelocity = 3;
+            }
+            else
+            {
+                YVelocity = -3;
+            }
+
         }
 
         private void CheckForBrick(Wall wall)
