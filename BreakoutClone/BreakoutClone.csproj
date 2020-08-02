@@ -59,6 +59,7 @@
     <Compile Include="Screens\MenuComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\OptionsScreen.cs" />
     <Compile Include="Screens\StartScreen.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,7 @@ namespace BreakoutClone
         GameScreen activeScreen;
         StartScreen startScreen;
         ActionScreen actionScreen;
+        OptionsScreen optionsScreen;
 
         public static Breakout Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
@@ -59,6 +60,10 @@ namespace BreakoutClone
             Components.Add(actionScreen);
             actionScreen.Hide();
 
+            optionsScreen = new OptionsScreen(this, spriteBatch, Content.Load<SpriteFont>("menufont"), Content.Load<Texture2D>("background"));
+            Components.Add(optionsScreen);
+            optionsScreen.Hide();
+
             activeScreen = startScreen;
             activeScreen.Show();
         }
@@ -87,6 +92,12 @@ namespace BreakoutClone
                     {
                         activeScreen.Hide();
                         activeScreen = actionScreen;
+                        activeScreen.Show();
+                    }
+                    if (startScreen.SelectedIndex == 1)
+                    {
+                        activeScreen.Hide();
+                        activeScreen = optionsScreen;
                         activeScreen.Show();
                     }
                     if (startScreen.SelectedIndex == 2)
