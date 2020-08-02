@@ -24,7 +24,7 @@ namespace BreakoutClone
 		float width = 0f;
 		float height = 0f;
 
-		float fontScale = 2;
+		float fontScale = 1;
 
 		public int SelectedIndex
 		{

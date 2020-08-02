@@ -21,6 +21,8 @@ namespace BreakoutClone
         ActionScreen actionScreen;
         OptionsScreen optionsScreen;
 
+        private Input input;
+
         public static Breakout Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
@@ -42,7 +44,6 @@ namespace BreakoutClone
 
         protected override void Initialize()
         {
-
             base.Initialize();
         }
 
@@ -66,6 +67,8 @@ namespace BreakoutClone
 
             activeScreen = startScreen;
             activeScreen.Show();
+
+            input = new Input();
         }
 
         protected override void UnloadContent()
@@ -83,6 +86,8 @@ namespace BreakoutClone
             keyboardState = Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            input.Update(activeScreen);
 
             if (activeScreen == startScreen)
             {
@@ -104,6 +109,16 @@ namespace BreakoutClone
                     {
                         this.Exit();
                     }
+                }
+            }
+
+            if (activeScreen == optionsScreen)
+            {
+                if (CheckKey(Keys.Escape))
+                {
+                    activeScreen.Hide();
+                    activeScreen = startScreen;
+                    activeScreen.Show();
                 }
             }
 
