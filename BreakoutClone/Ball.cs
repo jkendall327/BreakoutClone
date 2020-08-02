@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace BreakoutClone
@@ -30,6 +31,10 @@ namespace BreakoutClone
 
         public Ball(Vector2 position, float XVelocity, float YVelocity)
         {
+            //dummy for debugger;
+
+            PaddleHitbox = new Rectangle((int)(Breakout.ScreenSize.X / 2), 600, Assets.Paddle.Width, Assets.Paddle.Height);
+
             Position = position;
 
             this.XVelocity = XVelocity;
@@ -177,13 +182,45 @@ namespace BreakoutClone
         {
             Rectangle ballHitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
-            // If the two hitboxes overlap.
-            if (Rectangle.Intersect(PaddleHitbox, ballHitbox) != Rectangle.Empty)
-            {
-                XVelocity *= -1;
-                YVelocity *= -1;
-                Position.Y = PaddleHitbox.Top - Height;
+            List<Rectangle> paddleBarSections = new List<Rectangle>();
 
+            // Chop the paddle into five equal sections.
+            for (int i = 0; i < 5; i++)
+            {
+                paddleBarSections.Add(new Rectangle(PaddleHitbox.X + i * (PaddleHitbox.Width / 5), PaddleHitbox.Y, PaddleHitbox.Width / 5, PaddleHitbox.Height));
+            }
+
+            // Check if ball has hit each paddle section.
+
+            for (int i = 0; i < paddleBarSections.Count; i++)
+            {
+                if (ballHitbox.Intersects(paddleBarSections[i]))
+                {
+                    // Switch on which rectangle it is we just hit.
+                    switch (i)
+                    {
+                        case 0: // leftmost
+                            XVelocity = -5;
+                            break;
+                        case 1:
+                            XVelocity = -3;
+                            break;
+                        case 2: // center
+                            XVelocity *= -1;
+                            break;
+                        case 3:
+                            XVelocity = 3;
+                            break;
+                        case 4: // rightmost
+                            XVelocity = 5;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    YVelocity *= -1;
+                    Position.Y = paddleBarSections[i].Top - Height;
+                }
             }
         }
 
