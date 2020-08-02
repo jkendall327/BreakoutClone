@@ -25,6 +25,7 @@ namespace BreakoutClone.Screens
         KeyboardState keyboardState;
         KeyboardState oldKeyboardState;
 
+        MouseState oldMouseState;
 
         public ScreenManager(Breakout game, SpriteBatch spriteBatch)
         {
@@ -101,14 +102,34 @@ namespace BreakoutClone.Screens
                 ChangeScreen(startScreen);
             }
 
+            CheckMouse();
+
+            // TODO: is there a way to pass the key value directly to entitymanager?
+
             if (keyboardState.IsKeyDown(Keys.Right))
             {
                 actionScreen.entityManager.HandleInput(Keys.Right);
             }
+
             if (keyboardState.IsKeyDown(Keys.Left))
             {
                 actionScreen.entityManager.HandleInput(Keys.Left);
             }
+        }
+
+        private void CheckMouse()
+        {
+            MouseState newMouseState = Mouse.GetState();
+
+            if (oldMouseState.X != newMouseState.X)
+            {
+                if (Breakout.Viewport.Bounds.Contains(newMouseState.Position))
+                {
+                    actionScreen.entityManager.HandleInput(newMouseState);
+                }
+            }
+
+            oldMouseState = newMouseState;
         }
 
         private void HandleOptionsScreenInput()

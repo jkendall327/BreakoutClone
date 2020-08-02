@@ -51,6 +51,11 @@ namespace BreakoutClone
             }
         }
 
+        public void HandleInput(MouseState mouseState)
+        {
+            Player.MoveTo(mouseState.X);
+        }
+
         public void Update()
         {
             foreach (IUpdate updatable in Updaters)

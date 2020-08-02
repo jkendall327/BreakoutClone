@@ -20,9 +20,6 @@ namespace BreakoutClone
 
         Vector2 Position;
 
-        private KeyboardState oldKeyboardState;
-        private MouseState oldMouseState;
-
         public event EventHandler<Rectangle> PaddleMoved;
 
         public Paddle(Vector2 position)
@@ -40,29 +37,6 @@ namespace BreakoutClone
 
         public void Update()
         {
-            CheckMouse();
-
-        }
-
-        /*
-         * TODO: Move this code out of here and into ScreenManager?
-         * Consolidate all the raw input checking into one place.
-         * Then pass those keys down to entitymanager through to the paddle.
-         */
-
-        private void CheckMouse()
-        {
-            MouseState newmouseState = Mouse.GetState();
-
-            if (oldMouseState.X != newmouseState.X)
-            {
-                if (Breakout.Viewport.Bounds.Contains(newmouseState.Position))
-                {
-                    MoveTo(newmouseState.X);
-                }
-            }
-
-            oldMouseState = newmouseState;
         }
 
         public void MoveTo(float xCoordinate)
