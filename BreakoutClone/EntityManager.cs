@@ -48,7 +48,7 @@ namespace BreakoutClone
                 updatable.Update();
             }
 
-            if (wall.BricksLeft < 29)
+            if (wall.BricksLeft < 1)
             {
                 wall.Create(0, 100);
 
