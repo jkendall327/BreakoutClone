@@ -1,6 +1,7 @@
 ﻿using BreakoutClone.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace BreakoutClone
@@ -24,6 +25,8 @@ namespace BreakoutClone
         private readonly Random random = new Random();
 
         bool isActive = true;
+
+        private MouseState oldMouseState;
 
         public Ball(Vector2 position, float XVelocity, float YVelocity)
         {
@@ -50,9 +53,11 @@ namespace BreakoutClone
 
         public void Update(Wall wall)
         {
-            if (isActive == false)
+            MouseState newMouseState = Mouse.GetState();
+            //process left-click
+            if (newMouseState.LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed && oldMouseState.X == newMouseState.X && oldMouseState.Y == newMouseState.Y && isActive == false)
             {
-
+                Launch();
             }
 
             if (isActive)
@@ -77,6 +82,8 @@ namespace BreakoutClone
                     CheckForBrick(wall);
                 } 
             }
+
+            oldMouseState = newMouseState;
         }
 
         public void Launch()
@@ -154,9 +161,17 @@ namespace BreakoutClone
             // Hit bottom of screen
             if (Position.Y + Height > Breakout.ScreenSize.Y)
             {
-                Position.Y = Breakout.ScreenSize.Y - Height;
-                YVelocity *= -1;
+                Position.X = Breakout.ScreenSize.X / 2;
+                Position.Y = Breakout.ScreenSize.Y / 2;
+                isActive = false;
             }
+
+
+            //if (Position.Y + Height > Breakout.ScreenSize.Y)
+            //{
+            //    Position.Y = Breakout.ScreenSize.Y - Height;
+            //    YVelocity *= -1;
+            //}
 
         }
 
