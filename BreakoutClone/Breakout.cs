@@ -1,4 +1,5 @@
 ﻿using BreakoutClone.Content;
+using BreakoutClone.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,6 +21,8 @@ namespace BreakoutClone
         StartScreen startScreen;
         ActionScreen actionScreen;
         OptionsScreen optionsScreen;
+
+        ScreenManager screenManager;
 
         private Input input;
 
@@ -53,22 +56,9 @@ namespace BreakoutClone
 
             Assets.Load(Content);
 
-            startScreen = new StartScreen(this, spriteBatch, Content.Load<SpriteFont>("menufont"), Content.Load<Texture2D>("background"));
-            Components.Add(startScreen);
-            startScreen.Hide();
+            screenManager = new ScreenManager(this, spriteBatch);
 
-            actionScreen = new ActionScreen(this, spriteBatch, Content.Load<Texture2D>("background"));
-            Components.Add(actionScreen);
-            actionScreen.Hide();
-
-            optionsScreen = new OptionsScreen(this, spriteBatch, Content.Load<SpriteFont>("menufont"), Content.Load<Texture2D>("background"));
-            Components.Add(optionsScreen);
-            optionsScreen.Hide();
-
-            activeScreen = startScreen;
-            activeScreen.Show();
-
-            input = new Input();
+            screenManager.LoadScreens();
         }
 
         protected override void UnloadContent()
@@ -83,7 +73,7 @@ namespace BreakoutClone
                 return;
             }
 
-            CheckInput();
+            screenManager.CheckInput();
 
             base.Update(gameTime);
 
