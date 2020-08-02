@@ -63,41 +63,26 @@ namespace BreakoutClone.Screens
         {
             keyboardState = Keyboard.GetState();
             
-            //TODO: next task is drawing the paddle dynamically so the size can be changed mid-game.
+            /*
+             * Switch on the run-time type of activeScreen.
+             * Can't use a type directly in a switch statement,
+             * so use _ to discard value immediately.
+             * 
+             * Execution then passed off to handler functions.
+             * 
+             * TODO: maybe a place for delegate trickery?
+             */
 
             switch (activeScreen)
             {
-                case ActionScreen a:
-                    if (CheckKey(Keys.Escape))
-                    {
-                        ChangeScreen(startScreen);
-                    }
+                case ActionScreen _:
+                    HandleActionScreenInput();
                     break;
-                case OptionsScreen o:
-                    if (CheckKey(Keys.Escape))
-                    {
-                        ChangeScreen(startScreen);
-                    }
+                case OptionsScreen _:
+                    HandleOptionsScreenInput();
                     break;
-                case StartScreen s:
-                    if (CheckKey(Keys.Enter))
-                    {
-                        switch (startScreen.SelectedIndex)
-                        {
-                            case 0:
-                                ChangeScreen(actionScreen);
-                                break;
-                            case 1:
-                                ChangeScreen(optionsScreen);
-                                break;
-                            case 2:
-                                game.Exit();
-                                break;
-                            default:
-                                break;
-                        }
-
-                    }
+                case StartScreen _:
+                    HandleStartScreenInput();
                     break;
                 default:
                     Console.WriteLine("ERROR LMAO");
@@ -107,6 +92,49 @@ namespace BreakoutClone.Screens
             }
 
             oldKeyboardState = keyboardState;
+        }
+
+        private void HandleActionScreenInput()
+        {
+            if (CheckKey(Keys.Escape))
+            {
+                ChangeScreen(startScreen);
+            }
+            
+        }
+
+        private void HandleOptionsScreenInput()
+        {
+            if (CheckKey(Keys.Escape))
+            {
+                ChangeScreen(startScreen);
+            }
+        }
+
+        private void HandleStartScreenInput()
+        {
+            if (CheckKey(Keys.Enter))
+            {
+                switch (startScreen.SelectedIndex)
+                {
+                    case 0:
+                        ChangeScreen(actionScreen);
+                        break;
+                    case 1:
+                        ChangeScreen(optionsScreen);
+                        break;
+                    case 2:
+                        game.Exit();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (CheckKey(Keys.Escape))
+            {
+                game.Exit();
+            }
         }
 
         private bool CheckKey(Keys theKey)
