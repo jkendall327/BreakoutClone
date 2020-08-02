@@ -7,7 +7,7 @@ namespace BreakoutClone
 {
     class Ball : IDrawable
     {
-        Texture2D Image = Assets.Ball;
+        readonly Texture2D Image = Assets.Ball;
 
         public int Width { get; set; }
 
@@ -21,7 +21,7 @@ namespace BreakoutClone
 
         public Rectangle PaddleHitbox { get; set; }
 
-        Random random = new Random();
+        private readonly Random random = new Random();
 
         bool isActive = true;
 
@@ -40,7 +40,7 @@ namespace BreakoutClone
         // of the player's hitbox whenever it moves.
         public void Subscribe(Paddle paddle)
         {
-            paddle.paddleMoved += OnPaddleMoved;
+            paddle.PaddleMoved += OnPaddleMoved;
         }
 
         private void OnPaddleMoved(object sender, Rectangle hitbox)
@@ -94,9 +94,9 @@ namespace BreakoutClone
 
             foreach (Brick brick in wall.BrickWall)
             {
-                if (brick.isAlive && ballHitbox.Intersects(brick.Hitbox))
+                if (brick.IsAlive && ballHitbox.Intersects(brick.Hitbox))
                 {
-                    brick.isAlive = false;
+                    brick.IsAlive = false;
 
                     // Invert direction and increase speed.
                     YVelocity *= -1.3;

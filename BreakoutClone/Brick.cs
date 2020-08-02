@@ -6,17 +6,17 @@ namespace BreakoutClone
 {
     class Brick : IDrawable, IUpdate
     {
-        Texture2D Image = Assets.Brick;
+        readonly Texture2D Image = Assets.Brick;
 
         Vector2 Position;
 
         public Rectangle Hitbox { get; set; }
 
-        public bool isAlive { get; set; }
+        public bool IsAlive { get; set; }
 
         public Brick(Vector2 position)
         {
-            isAlive = true;
+            IsAlive = true;
 
             Position = position;
 
@@ -25,7 +25,7 @@ namespace BreakoutClone
 
         public void Draw(SpriteBatch spritebatch)
         {
-            if (isAlive)
+            if (IsAlive)
             {
                 spritebatch.Draw(Image, Position, Color.White);
             }

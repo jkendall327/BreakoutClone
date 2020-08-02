@@ -8,9 +8,8 @@ namespace BreakoutClone
 
     class EntityManager : IDrawable
     {
-        List<IDrawable> drawables = new List<IDrawable>();
-
-        List<IUpdate> updaters = new List<IUpdate>();
+        readonly List<IDrawable> drawables = new List<IDrawable>();
+        readonly List<IUpdate> updaters = new List<IUpdate>();
 
         Paddle player;
 

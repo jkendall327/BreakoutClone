@@ -9,7 +9,7 @@ namespace BreakoutClone
     /// </summary>
     public class Breakout : Game
     {
-        GraphicsDeviceManager graphics;
+        readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         public static Breakout Instance { get; private set; }

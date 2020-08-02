@@ -8,7 +8,7 @@ namespace BreakoutClone
 {
     class Paddle : IDrawable, IUpdate
     {
-        Texture2D Image;
+        readonly Texture2D Image;
 
         public int Width { get; set; }
 
@@ -21,7 +21,7 @@ namespace BreakoutClone
         private KeyboardState oldKeyboardState;
         private MouseState oldMouseState;
 
-        public event EventHandler<Rectangle> paddleMoved;
+        public event EventHandler<Rectangle> PaddleMoved;
 
         public Paddle(Vector2 position)
         {
@@ -88,7 +88,7 @@ namespace BreakoutClone
 
             Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
-            paddleMoved.Invoke(this, Hitbox);
+            PaddleMoved.Invoke(this, Hitbox);
         }
 
         public void MoveLeft()
@@ -102,7 +102,7 @@ namespace BreakoutClone
 
             Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
-            paddleMoved.Invoke(this, Hitbox);
+            PaddleMoved.Invoke(this, Hitbox);
         }
 
         public void MoveRight()
@@ -116,7 +116,7 @@ namespace BreakoutClone
 
             Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
-            paddleMoved.Invoke(this, Hitbox);
+            PaddleMoved.Invoke(this, Hitbox);
         }
 
         public void Draw(SpriteBatch spritebatch)
