@@ -71,7 +71,8 @@ namespace BreakoutClone
 
         private void Move(Wall wall)
         {
-            ClampSpeed();
+            XVelocity = Helper.Clamp(XVelocity, -10, 10);
+            YVelocity = Helper.Clamp(YVelocity, -10, 10);
 
             ChangePosition();
 
@@ -114,7 +115,6 @@ namespace BreakoutClone
         {
             isActive = true;
 
-            // TODO: both could return zero, i.e. stationary ball.
             bool newXDirection = new Random().Next() % 2 == 0;
             bool newYDirection = new Random().Next() % 2 == 0;
 
@@ -144,19 +144,6 @@ namespace BreakoutClone
             Position.Y += (float)YVelocity;
         }
 
-        private void ClampSpeed()
-        {
-            if (XVelocity > 10)
-            {
-                XVelocity = 10;
-            }
-
-            if (YVelocity > 10)
-            {
-                YVelocity = 10;
-            }
-        }
-
         private void CheckForBrick(Wall wall)
         {
             Rectangle ballHitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
@@ -184,12 +171,16 @@ namespace BreakoutClone
 
             if (ballHitbox.Intersects(PaddleHitbox))
             {
-                int offset = Convert.ToInt32((PaddleHitbox.Width - (PaddleHitbox.X + PaddleHitbox.Width - Position.X + Width / 2)));
+                float PointOfContactOnPaddle = PaddleHitbox.X + PaddleHitbox.Width - Position.X + Width / 2;
+
+                int offset = Convert.ToInt32((PaddleHitbox.Width - PointOfContactOnPaddle));
                 offset /= 5;
+
                 if (offset < 0)
                 {
                     offset = 0;
                 }
+
                 switch (offset)
                 {
                     case 0:
@@ -233,70 +224,13 @@ namespace BreakoutClone
                 YVelocity *= -1;
                 Position.Y = PaddleHitbox.Y - Height + 1;
             }
-
-
-
-            //List<Rectangle> paddleBarSections = new List<Rectangle>();
-
-            //// Chop the paddle into five equal sections.
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    paddleBarSections.Add(new Rectangle(PaddleHitbox.X + i * (PaddleHitbox.Width / 5), PaddleHitbox.Y, PaddleHitbox.Width / 5, PaddleHitbox.Height));
-            //}
-
-            //// Check if ball has hit each paddle section.
-
-            //for (int i = 0; i < paddleBarSections.Count; i++)
-            //{
-            //    if (ballHitbox.Intersects(paddleBarSections[i]))
-            //    {
-            //        Position.Y = paddleBarSections[i].Top - Height - 1;
-
-            //        // TODO: make the ball smaller and see if it still 'sticks'.
-            //        // Weird behaviour might be because the ball is bigger than a paddlebar section.
-
-            //        YVelocity *= -1;
-            //        // Switch on which rectangle it is we just hit.
-            //        switch (i)
-            //        {
-            //            case 0: // leftmost
-            //                XVelocity = -5;
-            //                Console.WriteLine("hit 1");
-            //                break;
-            //            case 1:
-            //                XVelocity = -3;
-            //                Console.WriteLine("hit 2");
-
-            //                break;
-            //            case 2: // center
-            //                XVelocity *= -1;
-            //                Console.WriteLine("hit 3");
-            //                break;
-            //            case 3:
-            //                XVelocity = -3;
-            //                Console.WriteLine("hit 4");
-
-            //                break;
-            //            case 4: // rightmost
-            //                Console.WriteLine("hit 5");
-            //                XVelocity = -5;
-            //                break;
-            //            default:
-            //                break;
-            //        }
-
-
-            //    }
-            //}
         }
 
         private void CheckForWalls()
         {
-            // Velocity multiplied by -0.9 to slow down ball
-            // on wall hit. 
-            // TODO: ball could hit zero velocity.
+            // Velocity multiplied by -0.9 to slow down ball on wall hit. 
 
-            Double WallSpeedModifier = -1.0;
+            Double WallSpeedModifier = -0.9;
 
             // Hit left wall
             if (Position.X < 0)
