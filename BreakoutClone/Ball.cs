@@ -74,7 +74,6 @@ namespace BreakoutClone
                 if (Position.Y > 200)
                 {
                     CheckForPaddle();
-
                 }
 
                 if (Position.Y < 200)
@@ -91,8 +90,8 @@ namespace BreakoutClone
             isActive = true;
 
             // TODO: both could return zero, i.e. stationary ball.
-            XVelocity = random.Next(-1, 1);
-            YVelocity = random.Next(-1, 1);
+            XVelocity = random.Next(-3, 3);
+            YVelocity = random.Next(-3, 3);
         }
 
         private void CheckForBrick(Wall wall)
@@ -136,18 +135,20 @@ namespace BreakoutClone
             // on wall hit. 
             // TODO: ball could hit zero velocity.
 
+            Double WallSpeedModifier = -1.0;
+
             // Hit left wall
             if (Position.X < 0)
             {
                 Position.X = 0;
-                XVelocity *= -0.9;
+                XVelocity *= WallSpeedModifier;
             }
 
             // Hit right wall
             if (Position.X + Width > Breakout.ScreenSize.X)
             {
                 Position.X = Breakout.ScreenSize.X - Width;
-                XVelocity *= -0.9;
+                XVelocity *= WallSpeedModifier;
             }
 
             // Hit top of screen
@@ -155,7 +156,7 @@ namespace BreakoutClone
             if (Position.Y < 0)
             {
                 Position.Y = 0;
-                YVelocity *= -0.9;
+                YVelocity *= WallSpeedModifier;
             }
 
             // Hit bottom of screen
@@ -165,14 +166,6 @@ namespace BreakoutClone
                 Position.Y = Breakout.ScreenSize.Y / 2;
                 isActive = false;
             }
-
-
-            //if (Position.Y + Height > Breakout.ScreenSize.Y)
-            //{
-            //    Position.Y = Breakout.ScreenSize.Y - Height;
-            //    YVelocity *= -1;
-            //}
-
         }
 
         public void Draw(SpriteBatch spritebatch)
