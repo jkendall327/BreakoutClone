@@ -76,6 +76,10 @@ namespace BreakoutClone
                 {
                     brick.isAlive = false;
                     YVelocity *= -1;
+
+                    // Breaking out of the loop is what stops the ball
+                    // from destroying multiple bricks at once.
+                    // TODO: idea for a powerup?
                     break;
                 }
             }

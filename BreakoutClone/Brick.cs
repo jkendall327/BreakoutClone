@@ -21,17 +21,6 @@ namespace BreakoutClone
             Position = position;
 
             Hitbox = new Rectangle(Position.ToPoint(), new Point(Image.Width, Image.Height));
-            
-            
-        }
-
-        
-
-        public Brick(int x, int y)
-        {
-            Position = new Vector2(x, y);
-
-            Hitbox = Image.Bounds;
         }
 
         public void Draw(SpriteBatch spritebatch)
@@ -41,8 +30,6 @@ namespace BreakoutClone
                 spritebatch.Draw(Image, Position, Color.White);
             }
         }
-
-
 
         public void Update()
         {
