@@ -111,7 +111,8 @@ namespace BreakoutClone.Screens
 
             if (keyboardState.IsKeyDown(Keys.Right))
             {
-                actionScreen.EntitiesManager.HandleInput(Keys.Right);
+                //actionScreen.EntitiesManager.HandleInput(Keys.Right);
+                actionScreen.EntitiesManager.Player.MoveRight();
             }
 
             if (keyboardState.IsKeyDown(Keys.Left))

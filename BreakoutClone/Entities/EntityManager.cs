@@ -1,7 +1,9 @@
 ﻿using BreakoutClone.Content;
+using BreakoutClone.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace BreakoutClone
@@ -12,11 +14,15 @@ namespace BreakoutClone
         private List<IDrawable> Drawables;
         private List<IUpdate> Updaters;
 
+        private List<Item> ActiveItems= new List<Item>();
+
         public Paddle Player { get; set; }
 
         Ball ActiveBall { get; set; }
 
         Wall ActiveWall { get; set; }
+
+        private Random random = new Random();
 
         public EntityManager()
         {
@@ -76,6 +82,8 @@ namespace BreakoutClone
 
         public void Update()
         {
+            SpawnItems();
+
             foreach (IUpdate updatable in Updaters)
             {
                 updatable.Update();
@@ -89,6 +97,17 @@ namespace BreakoutClone
             }
 
             ActiveBall.Update(ActiveWall);
+        }
+
+        private void SpawnItems()
+        {
+            // 1-in-600 chance for an item to spawn.
+            if (random.Next(1, 600) == 1 && ActiveItems.Count < 3)
+            {
+                var item = new Item();
+                Drawables.Add(item);
+                ActiveItems.Add(item);
+            }
         }
 
         public void Draw(SpriteBatch spritebatch)

@@ -18,12 +18,22 @@ namespace BreakoutClone
 
         Vector2 Position;
 
-        Vector2 OriginalPosition = new Vector2(Breakout.ScreenSize.X / 2, Breakout.ScreenSize.Y / 2);
+        Vector2 StartingPosition;
 
-        // TODO: Clamp the velocities here in the set functions, it's what they're for! 
-        public double XVelocity { get; set; }
+        private double xvelocity;
+        public double XVelocity
+        {
+            get { return xvelocity; }
+            set { xvelocity = Helper.Clamp(value, -10, 10); }
+        }
 
-        public double YVelocity { get; set; }
+        private double yvelocity;
+
+        public double YVelocity
+        {
+            get { return yvelocity; }
+            set { yvelocity = Helper.Clamp(value, -10, 10); }
+        }
 
         public Rectangle PaddleHitbox { get; set; }
 
@@ -32,6 +42,7 @@ namespace BreakoutClone
         public Ball(Vector2 position, float XVelocity, float YVelocity)
         {
             Position = position;
+            StartingPosition = Position;
 
             this.XVelocity = XVelocity;
             this.YVelocity = YVelocity;
@@ -40,8 +51,6 @@ namespace BreakoutClone
             Height = Image.Height;
         }
 
-        // Subscribes to paddle so it can update its version
-        // of the player's hitbox whenever it moves.
         public void Subscribe(Paddle paddle)
         {
             paddle.PaddleMoved += OnPaddleMoved;
@@ -62,9 +71,6 @@ namespace BreakoutClone
 
         private void Move(Wall wall)
         {
-            XVelocity = Helper.Clamp(XVelocity, -10, 10);
-            YVelocity = Helper.Clamp(YVelocity, -10, 10);
-
             ChangePosition();
 
             CheckForWalls();
@@ -86,7 +92,7 @@ namespace BreakoutClone
         public void Reset()
         {
             IsActive = false;
-            Position = OriginalPosition;
+            Position = StartingPosition;
         }
 
         public void Launch()

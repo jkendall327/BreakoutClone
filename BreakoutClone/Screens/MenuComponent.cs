@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace BreakoutClone
 {
@@ -17,6 +18,9 @@ namespace BreakoutClone
 		KeyboardState keyboardState;
 		KeyboardState oldKeyboardState;
 
+		MouseState mouseState;
+		MouseState oldMouseState;
+
 		SpriteBatch spriteBatch;
 		SpriteFont spriteFont;
 
@@ -26,13 +30,14 @@ namespace BreakoutClone
 
 		float fontScale = 1;
 
+		//List<Rectangle> menuItemHitboxes;
+
 		public int SelectedIndex
 		{
 			get { return selectedIndex; }
 			set
 			{
-				// TODO: Use Clamp here instead
-				selectedIndex = value;
+ 				selectedIndex = value;
 				if (selectedIndex < 0)
 					selectedIndex = 0;
 				if (selectedIndex >= menuItems.Length)
@@ -55,12 +60,15 @@ namespace BreakoutClone
 
 			foreach (string item in menuItems)
 			{
+				// The width of the menu is set to whatever the item with the longest width is.
 				Vector2 size = spriteFont.MeasureString(item);
 				if (size.X > width)
 					width = size.X;
+
+				// Menu height is every item + 5 for each, as spacing.
 				height += spriteFont.LineSpacing + 5;
 			}
-
+			
 			position = new Vector2(
 				(Game.Window.ClientBounds.Width - width) / 2,
 				(Game.Window.ClientBounds.Height - height) / 2);
@@ -71,6 +79,7 @@ namespace BreakoutClone
 			base.Initialize();
 		}
 
+		// TODO: make this a static helper method since it's remade a few times.
 		private bool CheckKey(Keys theKey)
 		{
 			return keyboardState.IsKeyUp(theKey) &&
@@ -96,6 +105,13 @@ namespace BreakoutClone
 			base.Update(gameTime);
 
 			oldKeyboardState = keyboardState;
+
+			mouseState = Mouse.GetState();
+
+
+
+			oldMouseState = mouseState;
+
 		}
 
 		public override void Draw(GameTime gameTime)
@@ -111,6 +127,7 @@ namespace BreakoutClone
 					tint = highlight;
 				else
 					tint = normal;
+
 				spriteBatch.DrawString(spriteFont, menuItems[i], location, tint, 0, Vector2.Zero, fontScale, SpriteEffects.None, 0);
 				location.Y += spriteFont.LineSpacing + 5;
 			}

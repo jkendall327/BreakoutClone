@@ -5,8 +5,6 @@ using System;
 
 namespace BreakoutClone
 {
-    //TODO: next task is drawing the paddle dynamically so the size can be changed mid-game.
-
     class Paddle : IDrawable, IUpdate
     {
         private int width;
