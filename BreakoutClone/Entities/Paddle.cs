@@ -16,26 +16,14 @@ namespace BreakoutClone
         public int Width
         {
             get { return width; }
-            set {
-                if (value > 0)
-                {
-                width = value; // Set width to value
-                UpdateHitbox();}; //Update hitbox with new width
-            }
+            set {if (value > 0) {width = value;};}
         }
 
         public int Height { get; set; }
 
-        Rectangle Hitbox { get; set; }
-
         Vector2 Position;
 
         public event EventHandler<Rectangle> PaddleMoved;
-
-        private void UpdateHitbox()
-        {
-            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
-        }
 
         public Paddle(Vector2 position)
         {
@@ -46,8 +34,6 @@ namespace BreakoutClone
             Width = Image.Width;
 
             Height = Image.Height;
-
-            Hitbox = Image.Bounds;
         }
 
         public void Update()
@@ -66,9 +52,7 @@ namespace BreakoutClone
                 Position.X = xCoordinate;
             }
 
-            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
-
-            PaddleMoved.Invoke(this, Hitbox);
+            PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
         }
 
         public void MoveLeft()
@@ -80,9 +64,7 @@ namespace BreakoutClone
                 Position.X = 1;
             }
 
-            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
-
-            PaddleMoved.Invoke(this, Hitbox);
+            PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
         }
 
         public void MoveRight()
@@ -94,14 +76,14 @@ namespace BreakoutClone
                 Position.X = Breakout.ScreenSize.X - Width;
             }
 
-            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
-
-            PaddleMoved.Invoke(this, Hitbox);
+            PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             // Draws the paddle based on the hitbox using primitives.
+
+            var Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
             Color[] data = new Color[Hitbox.Width * Hitbox.Height];
             Texture2D rectTexture = new Texture2D(Breakout.Instance.GraphicsDevice, Hitbox.Width, Hitbox.Height);
