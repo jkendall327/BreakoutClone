@@ -1,4 +1,5 @@
 ﻿using BreakoutClone.Content;
+using BreakoutClone.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -61,16 +62,13 @@ namespace BreakoutClone
             PaddleHitbox = hitbox;
         }
 
-        public void Update(Wall wall)
+        public void Update(Wall wall, List<Item> items)
         {
-            if (IsActive)
+            if (IsActive == false)
             {
-                Move(wall);
+                return;
             }
-        }
 
-        private void Move(Wall wall)
-        {
             ChangePosition();
 
             CheckForWalls();
@@ -87,6 +85,24 @@ namespace BreakoutClone
             {
                 CheckForBrick(wall);
             }
+
+            CheckForItem(items);
+
+        }
+
+        private void CheckForItem(List<Item> items)
+        {
+            Rectangle ballHitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
+
+            foreach (Item item in items)
+            {
+                if (item.Hitbox.Intersects(ballHitbox))
+                {
+                    item.IsVisible = false;
+                }
+                    
+            }
+
         }
 
         public void Reset()

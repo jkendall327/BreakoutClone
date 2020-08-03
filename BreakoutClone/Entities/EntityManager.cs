@@ -96,13 +96,15 @@ namespace BreakoutClone
                 ActiveBall.Reset();
             }
 
-            ActiveBall.Update(ActiveWall);
+            ActiveBall.Update(ActiveWall, ActiveItems);
         }
 
         private void SpawnItems()
         {
             // 1-in-600 chance for an item to spawn.
-            if (random.Next(1, 600) == 1 && ActiveItems.Count < 3)
+            // Must have destroyed some blocks before items spawn.
+            // 3 max items.
+            if (random.Next(1, 100) == 1 && ActiveWall.BricksLeft < 27 && ActiveItems.Count < 3)
             {
                 var item = new Item();
                 Drawables.Add(item);
