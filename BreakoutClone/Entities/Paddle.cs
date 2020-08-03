@@ -1,7 +1,6 @@
 ﻿using BreakoutClone.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace BreakoutClone
@@ -12,15 +11,31 @@ namespace BreakoutClone
     {
         readonly Texture2D Image;
 
-        public int Width { get; set; }
+        private int width;
+
+        public int Width
+        {
+            get { return width; }
+            set {
+                if (value > 0)
+                {
+                width = value; // Set width to value
+                UpdateHitbox();}; //Update hitbox with new width
+            }
+        }
 
         public int Height { get; set; }
 
-        Rectangle Hitbox;
+        Rectangle Hitbox { get; set; }
 
         Vector2 Position;
 
         public event EventHandler<Rectangle> PaddleMoved;
+
+        private void UpdateHitbox()
+        {
+            Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
+        }
 
         public Paddle(Vector2 position)
         {
@@ -86,6 +101,8 @@ namespace BreakoutClone
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            // Draws the paddle based on the hitbox using primitives.
+
             Color[] data = new Color[Hitbox.Width * Hitbox.Height];
             Texture2D rectTexture = new Texture2D(Breakout.Instance.GraphicsDevice, Hitbox.Width, Hitbox.Height);
             

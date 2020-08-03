@@ -12,7 +12,7 @@ namespace BreakoutClone
         private List<IDrawable> Drawables;
         private List<IUpdate> Updaters;
 
-        Paddle Player { get; set; }
+        public Paddle Player { get; set; }
 
         Ball ActiveBall { get; set; }
 
