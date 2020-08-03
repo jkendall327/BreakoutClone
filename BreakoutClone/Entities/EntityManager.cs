@@ -28,10 +28,9 @@ namespace BreakoutClone
             ActiveWall = new Wall();
             ActiveWall.Create(0, 100);
 
-            Player = new Paddle(new Vector2(Breakout.ScreenSize.X / 2, 600));
+            Player = new Paddle(new Vector2(Breakout.ScreenSize.X / 2, 600), 100, 20);
 
             ActiveBall = new Ball(new Vector2(200, 300), 3, 3);
-
             ActiveBall.Subscribe(Player);
 
             // Add items to drawable, updatable lists.

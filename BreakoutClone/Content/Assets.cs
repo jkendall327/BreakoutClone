@@ -5,7 +5,7 @@ namespace BreakoutClone.Content
 {
     public static class Assets
     {
-        public static Texture2D Paddle;
+        //public static Texture2D Paddle;
 
         public static Texture2D Brick;
 
@@ -13,7 +13,7 @@ namespace BreakoutClone.Content
 
         public static void Load(ContentManager content)
         {
-            Paddle = content.Load<Texture2D>("board");
+            //Paddle = content.Load<Texture2D>("board");
             Brick = content.Load<Texture2D>("brick");
             Ball = content.Load<Texture2D>("ball");
         }

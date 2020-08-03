@@ -9,8 +9,6 @@ namespace BreakoutClone
 
     class Paddle : IDrawable, IUpdate
     {
-        readonly Texture2D Image;
-
         private int width;
 
         public int Width
@@ -25,15 +23,11 @@ namespace BreakoutClone
 
         public event EventHandler<Rectangle> PaddleMoved;
 
-        public Paddle(Vector2 position)
+        public Paddle(Vector2 position, int width, int height)
         {
             Position = position;
-
-            Image = Assets.Paddle;
-
-            Width = Image.Width;
-
-            Height = Image.Height;
+            Width = width;
+            Height = height;
         }
 
         public void Update()
@@ -81,7 +75,7 @@ namespace BreakoutClone
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Draws the paddle based on the hitbox using primitives.
+            // Draws the paddle based on the current hitbox using primitives.
 
             var Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
 
