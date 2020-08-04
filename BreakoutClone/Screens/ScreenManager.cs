@@ -8,20 +8,20 @@ namespace BreakoutClone.Screens
 {
     public class ScreenManager
     {
-        GameScreen activeScreen;
-        StartScreen startScreen;
-        ActionScreen actionScreen;
-        OptionsScreen optionsScreen;
-
-        readonly GameComponentCollection Components;
-        readonly ContentManager Content;
-        readonly Breakout game;
-        readonly SpriteBatch spriteBatch;
-
-        KeyboardState keyboardState;
-        KeyboardState oldKeyboardState;
-
-        MouseState oldMouseState;
+        private GameScreen activeScreen;
+        private StartScreen startScreen;
+        private ActionScreen actionScreen;
+        private OptionsScreen optionsScreen;
+         
+        private readonly GameComponentCollection Components;
+        private readonly ContentManager Content;
+        private readonly Breakout game;
+        private readonly SpriteBatch spriteBatch;
+         
+        private KeyboardState keyboardState;
+        private KeyboardState oldKeyboardState;
+         
+        private MouseState oldMouseState;
 
         public ScreenManager(Breakout game, SpriteBatch spriteBatch)
         {
