@@ -3,10 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BreakoutClone.Screens
 {
@@ -63,7 +59,7 @@ namespace BreakoutClone.Screens
         public void CheckInput()
         {
             keyboardState = Keyboard.GetState();
-            
+
             /*
              * Switch on the run-time type of activeScreen.
              * Can't use a type directly in a switch statement,

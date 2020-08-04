@@ -1,10 +1,6 @@
 ﻿using BreakoutClone.Content;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BreakoutClone.Entities
 {
@@ -29,7 +25,7 @@ namespace BreakoutClone.Entities
 
                 Ball newBall = new Ball(pointOfOrigin, (float)(ball.XVelocity * -1), (float)(ball.YVelocity * -1));
 
-                balls.Add(newBall); 
+                balls.Add(newBall);
             }
         }
     }

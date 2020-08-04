@@ -1,5 +1,4 @@
-﻿using BreakoutClone.Content;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -85,7 +84,7 @@ namespace BreakoutClone
 
             Color[] data = new Color[Hitbox.Width * Hitbox.Height];
             Texture2D rectTexture = new Texture2D(Breakout.Instance.GraphicsDevice, Hitbox.Width, Hitbox.Height);
-            
+
             for (int i = 0; i < data.Length; ++i)
                 data[i] = Color.White;
 

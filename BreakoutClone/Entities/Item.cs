@@ -5,7 +5,7 @@ using System;
 
 namespace BreakoutClone.Entities
 {
-    class Item: IDrawable
+    class Item : IDrawable
     {
         // A base abstract class that other powerups derive from?
         // So they can all be treated as Item at runtime.
@@ -36,7 +36,7 @@ namespace BreakoutClone.Entities
         {
             if (IsVisible)
             {
-                spritebatch.Draw(Image, Position, Color.White); 
+                spritebatch.Draw(Image, Position, Color.White);
             }
         }
 

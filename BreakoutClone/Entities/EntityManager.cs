@@ -16,7 +16,7 @@ namespace BreakoutClone
 
         private List<Ball> ActiveBalls = new List<Ball>();
 
-        private readonly List<Item> ActiveItems= new List<Item>();
+        private readonly List<Item> ActiveItems = new List<Item>();
 
         public Paddle Player { get; set; }
 
