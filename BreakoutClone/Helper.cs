@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,12 @@ namespace BreakoutClone
             if (val.CompareTo(min) < 0) return min;
             else if (val.CompareTo(max) > 0) return max;
             else return val;
+        }
+
+        public static bool CheckKey(Keys theKey, KeyboardState oldKeyboardState)
+        {
+            return Keyboard.GetState().IsKeyUp(theKey) &&
+                oldKeyboardState.IsKeyDown(theKey);
         }
     }
 }

@@ -98,7 +98,7 @@ namespace BreakoutClone.Screens
         private void HandleActionScreenInput()
         {
             // Input relating to screens, not the actual game content.
-            if (CheckKey(Keys.Escape))
+            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
             {
                 ChangeScreen(startScreen);
             }
@@ -120,7 +120,7 @@ namespace BreakoutClone.Screens
                 actionScreen.EntitiesManager.HandleInput(Keys.Left);
             }
 
-            if (CheckKey(Keys.Space))
+            if (Helper.CheckKey(Keys.Space, oldKeyboardState))
             {
                 actionScreen.EntitiesManager.HandleInput(Keys.Space);
             }
@@ -155,7 +155,7 @@ namespace BreakoutClone.Screens
 
         private void HandleOptionsScreenInput()
         {
-            if (CheckKey(Keys.Escape))
+            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
             {
                 ChangeScreen(startScreen);
             }
@@ -163,7 +163,7 @@ namespace BreakoutClone.Screens
 
         private void HandleStartScreenInput()
         {
-            if (CheckKey(Keys.Enter))
+            if (Helper.CheckKey(Keys.Enter, oldKeyboardState))
             {
                 switch (startScreen.SelectedIndex)
                 {
@@ -181,16 +181,10 @@ namespace BreakoutClone.Screens
                 }
             }
 
-            if (CheckKey(Keys.Escape))
+            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
             {
                 game.Exit();
             }
-        }
-
-        private bool CheckKey(Keys theKey)
-        {
-            return keyboardState.IsKeyUp(theKey) &&
-                oldKeyboardState.IsKeyDown(theKey);
         }
 
     }

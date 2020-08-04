@@ -79,24 +79,17 @@ namespace BreakoutClone
 			base.Initialize();
 		}
 
-		// TODO: make this a static helper method since it's remade a few times.
-		private bool CheckKey(Keys theKey)
-		{
-			return keyboardState.IsKeyUp(theKey) &&
-				oldKeyboardState.IsKeyDown(theKey);
-		}
-
 		public override void Update(GameTime gameTime)
 		{
 			keyboardState = Keyboard.GetState();
 
-			if (CheckKey(Keys.Down))
+			if (Helper.CheckKey(Keys.Down, oldKeyboardState))
 			{
 				selectedIndex++;
 				if (selectedIndex == menuItems.Length)
 					selectedIndex = 0;
 			}
-			if (CheckKey(Keys.Up))
+			if (Helper.CheckKey(Keys.Up, oldKeyboardState))
 			{
 				selectedIndex--;
 				if (selectedIndex < 0)
