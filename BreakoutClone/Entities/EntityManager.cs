@@ -108,19 +108,34 @@ namespace BreakoutClone
             // 3 max items.
             if (random.Next(1, 100) == 1 && ActiveWall.BricksLeft < 27 && ActiveItems.Count < 3)
             {
-                Item item;
-                if (random.Next() % 2 == 0)
-                {
-                    item = new PowerupPaddleLength(Player);
-                }
-                else
-                {
-                    item = new PowerupDestroyBricks(ActiveWall);
-                }
+                Item item = ChoosePowerUp();
+                //if (random.Next() % 2 == 0)
+                //{
+                //    item = new PowerupPaddleLength(Player);
+                //}
+                //else
+                //{
+                //    item = new PowerupDestroyBricks(ActiveWall);
+                //}
 
 
                 Drawables.Add(item);
                 ActiveItems.Add(item);
+            }
+        }
+
+        private Item ChoosePowerUp()
+        {
+            switch (random.Next(4))
+            {
+                case 1:
+                    return new PowerupBallSplit(ActiveBall);
+                case 2:
+                    return new PowerupDestroyBricks(ActiveWall);
+                case 3:
+                    return new PowerupPaddleLength(Player);
+                default:
+                    return new PowerupPaddleLength(Player);
             }
         }
 

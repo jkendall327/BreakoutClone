@@ -17,7 +17,7 @@ namespace BreakoutClone
 
         public int Height { get; set; }
 
-        Vector2 Position;
+        public Vector2 Position;
 
         Vector2 StartingPosition;
 

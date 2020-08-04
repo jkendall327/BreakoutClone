@@ -11,11 +11,14 @@ namespace BreakoutClone.Content
 
         public static Texture2D Ball;
 
+        public static Texture2D Powerup;
+
         public static void Load(ContentManager content)
         {
             //Paddle = content.Load<Texture2D>("board");
             Brick = content.Load<Texture2D>("brick");
             Ball = content.Load<Texture2D>("ball");
+            Powerup = content.Load<Texture2D>("Powerup");
         }
     }
 }
