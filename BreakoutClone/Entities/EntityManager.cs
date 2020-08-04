@@ -16,7 +16,7 @@ namespace BreakoutClone
 
         private List<Ball> ActiveBalls = new List<Ball>();
 
-        private List<Item> ActiveItems= new List<Item>();
+        private readonly List<Item> ActiveItems= new List<Item>();
 
         public Paddle Player { get; set; }
 
@@ -24,7 +24,7 @@ namespace BreakoutClone
 
         Wall ActiveWall { get; set; }
 
-        private Random random = new Random();
+        private readonly Random random = new Random();
 
         public EntityManager()
         {
