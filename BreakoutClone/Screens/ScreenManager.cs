@@ -12,6 +12,7 @@ namespace BreakoutClone.Screens
         private StartScreen startScreen;
         private ActionScreen actionScreen;
         private OptionsScreen optionsScreen;
+        private PauseScreen pauseScreen;
          
         private readonly GameComponentCollection Components;
         private readonly ContentManager Content;
@@ -44,6 +45,10 @@ namespace BreakoutClone.Screens
             optionsScreen = new OptionsScreen(game, spriteBatch, Content.Load<SpriteFont>("menufont"), Content.Load<Texture2D>("background"));
             Components.Add(optionsScreen);
             optionsScreen.Hide();
+
+            pauseScreen = new PauseScreen(game, spriteBatch, Content.Load<SpriteFont>("menufont"), Content.Load<Texture2D>("background"));
+            Components.Add(pauseScreen);
+            pauseScreen.Hide();
 
             activeScreen = startScreen;
             activeScreen.Show();
@@ -164,6 +169,9 @@ namespace BreakoutClone.Screens
                 switch (startScreen.SelectedIndex)
                 {
                     case 0:
+                        Components.Remove(actionScreen);
+                        actionScreen = new ActionScreen(game, spriteBatch, Content.Load<Texture2D>("background"));
+                        Components.Add(actionScreen);
                         ChangeScreen(actionScreen);
                         break;
                     case 1:
