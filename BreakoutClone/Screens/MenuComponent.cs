@@ -9,7 +9,7 @@ namespace BreakoutClone
 
 	public class MenuComponent : DrawableGameComponent
 	{
-		string[] menuItems;
+        readonly string[] menuItems;
 		int selectedIndex;
 
 		Color normal = Color.White;
@@ -20,15 +20,13 @@ namespace BreakoutClone
 
 		MouseState mouseState;
 		MouseState oldMouseState;
-
-		SpriteBatch spriteBatch;
-		SpriteFont spriteFont;
+        readonly SpriteBatch spriteBatch;
+        readonly SpriteFont spriteFont;
 
 		Vector2 position;
 		float width = 0f;
 		float height = 0f;
-
-		float fontScale = 1;
+        readonly float fontScale = 1;
 
 		//List<Rectangle> menuItemHitboxes;
 

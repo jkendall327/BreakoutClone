@@ -17,10 +17,10 @@ namespace BreakoutClone.Screens
         ActionScreen actionScreen;
         OptionsScreen optionsScreen;
 
-        GameComponentCollection Components;
-        ContentManager Content;
-        Breakout game;
-        SpriteBatch spriteBatch;
+        readonly GameComponentCollection Components;
+        readonly ContentManager Content;
+        readonly Breakout game;
+        readonly SpriteBatch spriteBatch;
 
         KeyboardState keyboardState;
         KeyboardState oldKeyboardState;
