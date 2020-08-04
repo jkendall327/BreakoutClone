@@ -45,6 +45,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\Item.cs" />
+    <Compile Include="Entities\PowerupDestroyBricks.cs" />
+    <Compile Include="Entities\PowerupPaddleLength.cs" />
     <Compile Include="Screens\ActionScreen.cs" />
     <Compile Include="Content\Assets.cs" />
     <Compile Include="Entities\Ball.cs" />

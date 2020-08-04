@@ -99,6 +99,7 @@ namespace BreakoutClone
                 if (item.Hitbox.Intersects(ballHitbox))
                 {
                     item.IsVisible = false;
+                    item.Activate();
                 }
                     
             }

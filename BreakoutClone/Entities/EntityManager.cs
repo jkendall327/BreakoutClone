@@ -97,6 +97,11 @@ namespace BreakoutClone
             }
 
             ActiveBall.Update(ActiveWall, ActiveItems);
+
+            if (Player.Width > 100)
+            {
+                Player.Width -= 10;
+            }
         }
 
         private void SpawnItems()
@@ -106,7 +111,17 @@ namespace BreakoutClone
             // 3 max items.
             if (random.Next(1, 100) == 1 && ActiveWall.BricksLeft < 27 && ActiveItems.Count < 3)
             {
-                var item = new Item();
+                Item item;
+                if (random.Next() % 2 == 0)
+                {
+                    item = new PowerupPaddleLength(Player);
+                }
+                else
+                {
+                    item = new PowerupDestroyBricks(ActiveWall);
+                }
+
+
                 Drawables.Add(item);
                 ActiveItems.Add(item);
             }

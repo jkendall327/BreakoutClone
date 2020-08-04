@@ -7,7 +7,10 @@ namespace BreakoutClone.Entities
 {
     class Item: IDrawable
     {
-        Texture2D Image = Assets.Brick;
+        // A base abstract class that other powerups derive from?
+        // So they can all be treated as Item at runtime.
+
+        protected Texture2D Image = Assets.Brick;
 
         Vector2 Position;
 
@@ -15,7 +18,7 @@ namespace BreakoutClone.Entities
 
         public bool IsVisible { get; set; }
 
-        private readonly Random random = new Random();
+        protected readonly Random random = new Random();
 
         public Item()
         {
@@ -35,6 +38,11 @@ namespace BreakoutClone.Entities
             {
                 spritebatch.Draw(Image, Position, Color.White); 
             }
+        }
+
+        public virtual void Activate()
+        {
+
         }
     }
 }

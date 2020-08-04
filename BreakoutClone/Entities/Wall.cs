@@ -10,13 +10,20 @@ namespace BreakoutClone.Content
 
         public int BricksLeft { get; set; }
 
+        public int Columns { get; set; }
+
+        public int Rows { get; set; }
+
         public Wall()
         {
         }
 
         public void Create(float x, float y)
         {
-            BrickWall = new Brick[3, 10];
+            Rows = 3;
+            Columns = 10;
+
+            BrickWall = new Brick[Rows, Columns];
 
             BricksLeft = BrickWall.Length;
 
