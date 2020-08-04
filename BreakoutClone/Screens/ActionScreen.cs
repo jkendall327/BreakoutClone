@@ -8,6 +8,7 @@ namespace BreakoutClone
         Texture2D image;
         Rectangle imageRectangle;
 
+        
         public EntityManager EntitiesManager { get; private set; }
 
         public ActionScreen(Game game, SpriteBatch spriteBatch, Texture2D image) : base(game, spriteBatch)

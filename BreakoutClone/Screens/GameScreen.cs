@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Xml.XPath;
 
 namespace BreakoutClone
 {
     public abstract class GameScreen : DrawableGameComponent
     {
-        List<GameComponent> components = new List<GameComponent>();
+        readonly List<GameComponent> components = new List<GameComponent>();
         protected Game game;
         protected SpriteBatch spriteBatch;
 
