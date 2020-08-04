@@ -14,6 +14,8 @@ namespace BreakoutClone
         private List<IDrawable> Drawables;
         private List<IUpdate> Updaters;
 
+        private List<Ball> ActiveBalls = new List<Ball>();
+
         private List<Item> ActiveItems= new List<Item>();
 
         public Paddle Player { get; set; }
@@ -38,6 +40,7 @@ namespace BreakoutClone
 
             ActiveBall = new Ball(new Vector2(200, 300), 3, 3);
             ActiveBall.Subscribe(Player);
+            ActiveBalls.Add(ActiveBall);
 
             // Add items to drawable, updatable lists.
             Drawables = new List<IDrawable> { ActiveWall, Player, ActiveBall };
@@ -96,9 +99,10 @@ namespace BreakoutClone
                 ActiveBall.Reset();
             }
 
-            ActiveBall.Update(ActiveWall, ActiveItems);
-
-
+            foreach (Ball ball in ActiveBalls)
+            {
+                ball.Update(ActiveWall, ActiveItems);
+            }
         }
 
         private void SpawnItems()
@@ -109,15 +113,6 @@ namespace BreakoutClone
             if (random.Next(1, 100) == 1 && ActiveWall.BricksLeft < 27 && ActiveItems.Count < 3)
             {
                 Item item = ChoosePowerUp();
-                //if (random.Next() % 2 == 0)
-                //{
-                //    item = new PowerupPaddleLength(Player);
-                //}
-                //else
-                //{
-                //    item = new PowerupDestroyBricks(ActiveWall);
-                //}
-
 
                 Drawables.Add(item);
                 ActiveItems.Add(item);
@@ -129,7 +124,7 @@ namespace BreakoutClone
             switch (random.Next(4))
             {
                 case 1:
-                    return new PowerupBallSplit(ActiveBall);
+                    return new PowerupBallSplit(ActiveBall, ActiveBalls);
                 case 2:
                     return new PowerupDestroyBricks(ActiveWall);
                 case 3:
