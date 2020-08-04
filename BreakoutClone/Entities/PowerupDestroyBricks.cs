@@ -26,14 +26,19 @@ namespace BreakoutClone.Entities
 
             for (int i = 0; i < bricksToDestroy; i++)
             {
-                int randomLayer = random.Next(1, wall.Rows);
-                int randomBrickInLayer = random.Next(1, wall.Columns);
-
-                if (bricks[randomLayer, randomBrickInLayer].IsAlive)
+                List<Brick> aliveBricks = new List<Brick>();
+                foreach (Brick brick in bricks)
                 {
-                    Brick toBeDestroyed = bricks[randomLayer, randomBrickInLayer];
-                    toBeDestroyed.IsAlive = false;
+                    if (brick.IsAlive)
+                    {
+                        aliveBricks.Add(brick);
+                    }
                 }
+
+                int brickToDestroy = random.Next(aliveBricks.Count - 1);
+
+                aliveBricks[brickToDestroy].IsAlive = false;
+                wall.BricksLeft--;
 
             }
         }
