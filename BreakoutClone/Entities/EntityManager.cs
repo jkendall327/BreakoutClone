@@ -98,10 +98,7 @@ namespace BreakoutClone
 
             ActiveBall.Update(ActiveWall, ActiveItems);
 
-            if (Player.Width > 100)
-            {
-                Player.Width -= 10;
-            }
+
         }
 
         private void SpawnItems()

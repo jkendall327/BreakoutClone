@@ -18,7 +18,7 @@ namespace BreakoutClone.Entities
         }
         public override void Activate()
         {
-            paddle.Width += 25;
+            paddle.Width += 5;
         }
     }
 
