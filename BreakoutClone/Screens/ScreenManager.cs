@@ -86,6 +86,9 @@ namespace BreakoutClone.Screens
                 case StartScreen _:
                     HandleStartScreenInput();
                     break;
+                case PauseScreen _:
+                    HandlePauseScreenInput();
+                    break;
                 default:
                     Console.WriteLine("ERROR LMAO");
                     break;
@@ -96,12 +99,35 @@ namespace BreakoutClone.Screens
             oldKeyboardState = keyboardState;
         }
 
+        private void HandlePauseScreenInput()
+        {
+            if (Helper.CheckKey(Keys.Enter, oldKeyboardState))
+            {
+                switch (pauseScreen.SelectedIndex)
+                {
+                    case 0:
+                        ChangeScreen(actionScreen);
+                        break;
+                    case 1:
+                        ChangeScreen(startScreen);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
+            {
+                game.Exit();
+            }
+        }
+
         private void HandleActionScreenInput()
         {
             // Input relating to screens, not the actual game content.
             if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
             {
-                ChangeScreen(startScreen);
+                ChangeScreen(pauseScreen);
             }
 
             // Checking mouse and keyboard input.
@@ -112,7 +138,6 @@ namespace BreakoutClone.Screens
 
             if (keyboardState.IsKeyDown(Keys.Right))
             {
-                //actionScreen.EntitiesManager.HandleInput(Keys.Right);
                 actionScreen.EntitiesManager.Player.MoveRight();
             }
 
@@ -169,6 +194,7 @@ namespace BreakoutClone.Screens
                 switch (startScreen.SelectedIndex)
                 {
                     case 0:
+                        // Make a new version of actionScreen to set the gamestate clean.
                         Components.Remove(actionScreen);
                         actionScreen = new ActionScreen(game, spriteBatch, Content.Load<Texture2D>("background"));
                         Components.Add(actionScreen);
