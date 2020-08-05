@@ -1,17 +1,17 @@
-﻿using BreakoutClone.Content;
-using BreakoutClone.Entities;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-
-namespace BreakoutClone
+﻿namespace BreakoutClone
 {
-    class Ball : IDrawable
+    using System;
+    using System.Collections.Generic;
+    using BreakoutClone.Content;
+    using BreakoutClone.Entities;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
+    internal class Ball : IDrawable
     {
         private readonly Random random = new Random();
 
-        readonly Texture2D Image = Assets.Ball;
+        private readonly Texture2D image = Assets.Ball;
 
         public int Width { get; set; }
 
@@ -19,7 +19,7 @@ namespace BreakoutClone
 
         public Vector2 Position;
 
-        Vector2 StartingPosition;
+        private Vector2 startingPosition;
 
         private double xvelocity;
         public double XVelocity
@@ -38,16 +38,16 @@ namespace BreakoutClone
 
         public bool IsActive { get; set; }
 
-        public Ball(Vector2 position, float XVelocity, float YVelocity)
+        public Ball(Vector2 position, float xVelocity, float yVelocity)
         {
-            Position = position;
-            StartingPosition = Position;
+            this.Position = position;
+            this.startingPosition = this.Position;
 
-            this.XVelocity = XVelocity;
-            this.YVelocity = YVelocity;
+            this.XVelocity = xVelocity;
+            this.YVelocity = yVelocity;
 
-            Width = Image.Width;
-            Height = Image.Height;
+            this.Width = this.image.Width;
+            this.Height = this.image.Height;
         }
 
         public void Update(Wall wall, List<Item> items, Paddle paddle)
@@ -205,7 +205,7 @@ namespace BreakoutClone
         public void Reset()
         {
             IsActive = false;
-            Position = StartingPosition;
+            Position = startingPosition;
         }
 
         private double RandomiseLaunchDirection()
@@ -234,7 +234,7 @@ namespace BreakoutClone
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(Image, Position, Color.White);
+            spritebatch.Draw(image, Position, Color.White);
         }
 
     }
