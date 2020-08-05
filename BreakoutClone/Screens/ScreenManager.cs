@@ -65,21 +65,12 @@ namespace BreakoutClone.Screens
         {
             keyboardState = Keyboard.GetState();
 
-            /*
-             * Switch on the run-time type of activeScreen.
-             * Can't use a type directly in a switch statement,
-             * so use _ to discard value immediately.
-             * 
-             * Execution then passed off to handler functions.
-             * 
-             * TODO: maybe a place for delegate trickery?
-             */
+            //Switch on the run-time type of activeScreen using pattern-matching.
 
             switch (activeScreen)
             {
                 case ActionScreen _:
                     HandleInput(activeScreen as ActionScreen);
-                    //HandleActionScreenInput();
                     break;
                 case OptionsScreen _:
                     HandleInput(activeScreen as OptionsScreen);
@@ -95,11 +86,6 @@ namespace BreakoutClone.Screens
                     break;
                 case null:
                     throw new ArgumentNullException(nameof(activeScreen));
-            }
-
-            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
-            {
-                HandleEscInput();
             }
 
             oldKeyboardState = keyboardState;
@@ -127,13 +113,17 @@ namespace BreakoutClone.Screens
             {
                 actionScreen.EntitiesManager.HandleInput(Keys.Space);
             }
+
+            HandleEsc();
         }
 
         private void HandleInput(OptionsScreen optionsScreen)
         {
-
+            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
+            {
+                HandleEsc();
+            }
         }
-
         private void HandleInput(StartScreen startScreen)
         {
             if (Helper.CheckKey(Keys.Enter, oldKeyboardState))
@@ -154,6 +144,8 @@ namespace BreakoutClone.Screens
                         break;
                 }
             }
+
+            HandleEsc();
         }
 
         private void HandleInput(PauseScreen pauseScreen)
@@ -172,10 +164,19 @@ namespace BreakoutClone.Screens
                         break;
                 }
             }
+
+            HandleEsc();
         }
 
-        private void HandleEscInput()
+        private void HandleEsc()
         {
+            bool wasEscPressed = Helper.CheckKey(Keys.Escape, oldKeyboardState);
+
+            if (wasEscPressed == false)
+            {
+                return;
+            }
+
             if (activeScreen is ActionScreen)
             {
                 ChangeScreen(pauseScreen);
