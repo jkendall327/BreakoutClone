@@ -62,7 +62,7 @@ namespace BreakoutClone
             PaddleHitbox = hitbox;
         }
 
-        public void Update(Wall wall, List<Item> items)
+        public void Update(Wall wall, List<Item> items, Paddle paddle)
         {
             if (IsActive == false)
             {
@@ -73,7 +73,7 @@ namespace BreakoutClone
 
             CheckForWalls();
 
-            CheckForPaddle();
+            CheckForPaddle(paddle);
 
             CheckForBrick(wall);
 
@@ -132,8 +132,9 @@ namespace BreakoutClone
             return Helper.Clamp(offset, 0, int.MaxValue);
         }
 
-        private void CheckForPaddle()
+        private void CheckForPaddle(Paddle paddle)
         {
+            
             Rectangle ballHitbox = GetCurrentHitbox();
 
             if (ballHitbox.Intersects(PaddleHitbox) == false)

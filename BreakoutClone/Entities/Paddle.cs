@@ -22,7 +22,10 @@ namespace BreakoutClone
             set { if (value > 0) { height = value; } }
         }
 
-        Vector2 Position;
+        public Vector2 Position { get; private set; }
+
+        public int X { get; private set; }
+        public int Y { get; private set; }
 
         private const int PixelsToMovePaddleBy = 5;
 
@@ -46,32 +49,32 @@ namespace BreakoutClone
 
         public void MoveTo(float xCoordinate)
         {
-            Position.X = ClampPaddleLocation(xCoordinate);
+            X = (int)ClampPaddleLocation(xCoordinate);
 
             PaddleMoved.Invoke(this, GetCurrentHitbox());
         }
 
         public void MoveLeft()
         {
-            Position.X -= PixelsToMovePaddleBy;
+            X -= PixelsToMovePaddleBy;
 
-            Position.X = ClampPaddleLocation(Position.X);
+            X = (int)ClampPaddleLocation(X);
 
             PaddleMoved.Invoke(this, GetCurrentHitbox());
         }
 
         public void MoveRight()
         {
-            Position.X += PixelsToMovePaddleBy;
+            X += PixelsToMovePaddleBy;
 
-            Position.X = ClampPaddleLocation(Position.X);
+            X = (int)ClampPaddleLocation(X);
 
             PaddleMoved.Invoke(this, GetCurrentHitbox());
         }
 
         private Rectangle GetCurrentHitbox()
         {
-            return new Rectangle(Position.ToPoint(), new Point(Width, Height));
+            return new Rectangle(X, Y, Width, Height);
         }
 
         private Texture2D CreateRectangleTexture(Rectangle rectangle)
