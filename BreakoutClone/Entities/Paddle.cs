@@ -48,7 +48,7 @@ namespace BreakoutClone
         {
             Position.X = ClampPaddleLocation(xCoordinate);
 
-            PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
+            PaddleMoved.Invoke(this, GetCurrentHitbox());
         }
 
         public void MoveLeft()
@@ -57,7 +57,7 @@ namespace BreakoutClone
 
             Position.X = ClampPaddleLocation(Position.X);
 
-            PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
+            PaddleMoved.Invoke(this, GetCurrentHitbox());
         }
 
         public void MoveRight()
@@ -66,14 +66,19 @@ namespace BreakoutClone
 
             Position.X = ClampPaddleLocation(Position.X);
 
-            PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
+            PaddleMoved.Invoke(this, GetCurrentHitbox());
+        }
+
+        private Rectangle GetCurrentHitbox()
+        {
+            return new Rectangle(Position.ToPoint(), new Point(Width, Height));
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             // Draws the paddle based on the current hitbox using primitives.
 
-            var Hitbox = new Rectangle(Position.ToPoint(), new Point(Width, Height));
+            var Hitbox = GetCurrentHitbox();
 
             Color[] data = new Color[Hitbox.Width * Hitbox.Height];
             Texture2D rectTexture = new Texture2D(Breakout.Instance.GraphicsDevice, Hitbox.Width, Hitbox.Height);
