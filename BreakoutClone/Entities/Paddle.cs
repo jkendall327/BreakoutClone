@@ -39,15 +39,7 @@ namespace BreakoutClone
 
         public void MoveTo(float xCoordinate)
         {
-            // Clamp on screen.
-            if (xCoordinate + Width > Breakout.ScreenSize.X)
-            {
-                Position.X = Breakout.ScreenSize.X - Width;
-            }
-            else
-            {
-                Position.X = xCoordinate;
-            }
+            Position.X = Helper.Clamp(xCoordinate, 0, Breakout.ScreenSize.X - Width);
 
             PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
         }
