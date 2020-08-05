@@ -52,16 +52,6 @@ namespace BreakoutClone
             Height = Image.Height;
         }
 
-        public void Subscribe(Paddle paddle)
-        {
-            paddle.PaddleMoved += OnPaddleMoved;
-        }
-
-        private void OnPaddleMoved(object sender, Rectangle hitbox)
-        {
-            PaddleHitbox = hitbox;
-        }
-
         public void Update(Wall wall, List<Item> items, Paddle paddle)
         {
             if (IsActive == false)
@@ -134,15 +124,16 @@ namespace BreakoutClone
 
         private void CheckForPaddle(Paddle paddle)
         {
-            
+            Rectangle paddleHitbox = new Rectangle(paddle.X, paddle.Y, paddle.Width, paddle.Height);
+
             Rectangle ballHitbox = GetCurrentHitbox();
 
-            if (ballHitbox.Intersects(PaddleHitbox) == false)
+            if (ballHitbox.Intersects(paddleHitbox) == false)
             {
                 return;
             }
 
-            int offset = GetOffset(PaddleHitbox);
+            int offset = GetOffset(paddleHitbox);
 
             // TODO: magic number
 

@@ -45,7 +45,7 @@ namespace BreakoutClone
 
         private void CreatePlayer()
         {
-            Player = new Paddle(new Vector2(Breakout.ScreenSize.X / 2, 600), 100, 20);
+            Player = new Paddle((int)(Breakout.ScreenSize.X / 2), 600, 100, 20);
         }
 
         private void CreateWall()
@@ -57,7 +57,6 @@ namespace BreakoutClone
         private void CreateBall()
         {
             CurrentBall = new Ball(new Vector2(200, 300), 3, 3);
-            CurrentBall.Subscribe(Player);
             ActiveBalls.Add(CurrentBall);
         }
 
@@ -103,7 +102,7 @@ namespace BreakoutClone
 
             foreach (Ball ball in ActiveBalls)
             {
-                ball.Update(CurrentWall, ActiveItems);
+                ball.Update(CurrentWall, ActiveItems, Player);
             }
         }
 

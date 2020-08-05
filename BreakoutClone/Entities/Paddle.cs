@@ -22,18 +22,15 @@ namespace BreakoutClone
             set { if (value > 0) { height = value; } }
         }
 
-        public Vector2 Position { get; private set; }
-
         public int X { get; private set; }
         public int Y { get; private set; }
 
         private const int PixelsToMovePaddleBy = 5;
 
-        public event EventHandler<Rectangle> PaddleMoved;
-
-        public Paddle(Vector2 position, int width, int height)
+        public Paddle(int x, int y, int width, int height)
         {
-            Position = position;
+            X = x;
+            Y = y;
             Width = width;
             Height = height;
         }
@@ -50,8 +47,6 @@ namespace BreakoutClone
         public void MoveTo(float xCoordinate)
         {
             X = (int)ClampPaddleLocation(xCoordinate);
-
-            PaddleMoved.Invoke(this, GetCurrentHitbox());
         }
 
         public void MoveLeft()
@@ -59,8 +54,6 @@ namespace BreakoutClone
             X -= PixelsToMovePaddleBy;
 
             X = (int)ClampPaddleLocation(X);
-
-            PaddleMoved.Invoke(this, GetCurrentHitbox());
         }
 
         public void MoveRight()
@@ -68,8 +61,6 @@ namespace BreakoutClone
             X += PixelsToMovePaddleBy;
 
             X = (int)ClampPaddleLocation(X);
-
-            PaddleMoved.Invoke(this, GetCurrentHitbox());
         }
 
         private Rectangle GetCurrentHitbox()
