@@ -39,9 +39,14 @@ namespace BreakoutClone
         {
         }
 
+        private float ClampPaddleLocation(float x)
+        {
+            return Helper.Clamp(x, 0, Breakout.ScreenSize.X - Width);
+        }
+
         public void MoveTo(float xCoordinate)
         {
-            Position.X = Helper.Clamp(xCoordinate, 0, Breakout.ScreenSize.X - Width);
+            Position.X = ClampPaddleLocation(xCoordinate);
 
             PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
         }
@@ -50,10 +55,7 @@ namespace BreakoutClone
         {
             Position.X -= PixelsToMovePaddleBy;
 
-            if (Position.X < 1)
-            {
-                Position.X = 1;
-            }
+            Position.X = ClampPaddleLocation(Position.X);
 
             PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
         }
@@ -62,10 +64,7 @@ namespace BreakoutClone
         {
             Position.X += PixelsToMovePaddleBy;
 
-            if (Position.X + Width > Breakout.ScreenSize.X)
-            {
-                Position.X = Breakout.ScreenSize.X - Width;
-            }
+            Position.X = ClampPaddleLocation(Position.X);
 
             PaddleMoved.Invoke(this, new Rectangle(Position.ToPoint(), new Point(Width, Height)));
         }
