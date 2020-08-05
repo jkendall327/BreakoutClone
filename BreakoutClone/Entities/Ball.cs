@@ -9,6 +9,8 @@ namespace BreakoutClone
 {
     class Ball : IDrawable
     {
+        private readonly Random random = new Random();
+
         readonly Texture2D Image = Assets.Ball;
 
         public int Width { get; set; }
@@ -144,9 +146,8 @@ namespace BreakoutClone
             int offset = GetOffset(PaddleHitbox);
 
             // TODO: magic number
-            offset -= 6;
 
-            XVelocity = offset;
+            XVelocity = offset - 6;
 
             YVelocity *= -1;
         }
@@ -202,31 +203,26 @@ namespace BreakoutClone
             Position = StartingPosition;
         }
 
+        private double RandomiseLaunchDirection(double velocity)
+        {
+            if (random.Next() % 2 == 0)
+            {
+                velocity = 3;
+            }
+            else
+            {
+                velocity = -3;
+            }
+
+            return velocity;
+        }
+
         public void Launch()
         {
             IsActive = true;
 
-            bool newXDirection = new Random().Next() % 2 == 0;
-            bool newYDirection = new Random().Next() % 2 == 0;
-
-            if (newXDirection)
-            {
-                XVelocity = 3;
-            }
-            else
-            {
-                XVelocity = -3;
-            }
-
-            if (newYDirection)
-            {
-                YVelocity = 3;
-            }
-            else
-            {
-                YVelocity = -3;
-            }
-
+            XVelocity = RandomiseLaunchDirection(XVelocity);
+            YVelocity = RandomiseLaunchDirection(YVelocity);
         }
 
         public void Draw(SpriteBatch spritebatch)
