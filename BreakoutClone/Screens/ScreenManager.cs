@@ -96,7 +96,28 @@ namespace BreakoutClone.Screens
                     throw new ArgumentNullException(nameof(activeScreen));
             }
 
+            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
+            {
+                HandleEscInput();
+            }
+
             oldKeyboardState = keyboardState;
+        }
+
+        private void HandleEscInput()
+        {
+            if (activeScreen is ActionScreen)
+            {
+                ChangeScreen(pauseScreen);
+            }
+            if (activeScreen is StartScreen)
+            {
+                game.Exit();
+            }
+            else
+            {
+                ChangeScreen(startScreen);
+            }
         }
 
         private void HandlePauseScreenInput()
@@ -115,21 +136,10 @@ namespace BreakoutClone.Screens
                         break;
                 }
             }
-
-            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
-            {
-                game.Exit();
-            }
         }
 
         private void HandleActionScreenInput()
         {
-            // Input relating to screens, not the actual game content.
-            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
-            {
-                ChangeScreen(pauseScreen);
-            }
-
             // Checking mouse and keyboard input.
 
             CheckMouse();
@@ -176,10 +186,7 @@ namespace BreakoutClone.Screens
 
         private void HandleOptionsScreenInput()
         {
-            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
-            {
-                ChangeScreen(startScreen);
-            }
+
         }
 
         private void HandleStartScreenInput()
@@ -190,10 +197,7 @@ namespace BreakoutClone.Screens
                 {
                     case 0:
                         // Make a new version of actionScreen to set the gamestate clean.
-                        Components.Remove(actionScreen);
-                        actionScreen = new ActionScreen(game, spriteBatch, Content.Load<Texture2D>("background"));
-                        Components.Add(actionScreen);
-                        ChangeScreen(actionScreen);
+                        ResetGame();
                         break;
                     case 1:
                         ChangeScreen(optionsScreen);
@@ -205,12 +209,14 @@ namespace BreakoutClone.Screens
                         break;
                 }
             }
-
-            if (Helper.CheckKey(Keys.Escape, oldKeyboardState))
-            {
-                game.Exit();
-            }
         }
 
+        private void ResetGame()
+        {
+            Components.Remove(actionScreen);
+            actionScreen = new ActionScreen(game, spriteBatch, Content.Load<Texture2D>("background"));
+            Components.Add(actionScreen);
+            ChangeScreen(actionScreen);
+        }
     }
 }
