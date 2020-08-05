@@ -89,24 +89,22 @@ namespace BreakoutClone
 
         private void CheckForWalls()
         {
+
             // Velocity multiplied by -0.9 to slow down ball on wall hit. 
 
             Double WallSpeedModifier = -0.9;
 
-            //Position.X = Helper.Clamp(Position.X, 0, Breakout.ScreenSize.X - Width);
-            //Position.Y = Helper.Clamp(Position.Y, 0, Breakout.ScreenSize.Y);
-
             // Hit left wall
             if (Position.X < 0)
             {
-                Position.X = 0;
+                Position.X = Helper.Clamp(Position.X, 0, Breakout.ScreenSize.X - Width);
                 XVelocity *= WallSpeedModifier;
             }
 
             // Hit right wall
             if (Position.X + Width > Breakout.ScreenSize.X)
             {
-                Position.X = Breakout.ScreenSize.X - Width;
+                Position.X = Helper.Clamp(Position.X, 0, Breakout.ScreenSize.X - Width);
                 XVelocity *= WallSpeedModifier;
             }
 
@@ -114,7 +112,7 @@ namespace BreakoutClone
 
             if (Position.Y < 0)
             {
-                Position.Y = 0;
+                Position.Y = Helper.Clamp(Position.Y, 0, Breakout.ScreenSize.Y);
                 YVelocity *= WallSpeedModifier;
             }
 
@@ -203,8 +201,10 @@ namespace BreakoutClone
             Position = StartingPosition;
         }
 
-        private double RandomiseLaunchDirection(double velocity)
+        private double RandomiseLaunchDirection()
         {
+            double velocity;
+
             if (random.Next() % 2 == 0)
             {
                 velocity = 3;
@@ -221,8 +221,8 @@ namespace BreakoutClone
         {
             IsActive = true;
 
-            XVelocity = RandomiseLaunchDirection(XVelocity);
-            YVelocity = RandomiseLaunchDirection(YVelocity);
+            XVelocity = RandomiseLaunchDirection();
+            YVelocity = RandomiseLaunchDirection();
         }
 
         public void Draw(SpriteBatch spritebatch)
