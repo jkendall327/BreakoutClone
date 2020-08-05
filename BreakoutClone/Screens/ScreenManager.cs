@@ -78,16 +78,17 @@ namespace BreakoutClone.Screens
             switch (activeScreen)
             {
                 case ActionScreen _:
-                    HandleActionScreenInput();
+                    HandleInput(activeScreen as ActionScreen);
+                    //HandleActionScreenInput();
                     break;
                 case OptionsScreen _:
-                    HandleOptionsScreenInput();
+                    HandleInput(activeScreen as OptionsScreen);
                     break;
                 case StartScreen _:
-                    HandleStartScreenInput();
+                    HandleInput(activeScreen as StartScreen);
                     break;
                 case PauseScreen _:
-                    HandlePauseScreenInput();
+                    HandleInput(activeScreen as PauseScreen);
                     break;
                 default:
                     Console.WriteLine("ERROR LMAO");
@@ -104,41 +105,7 @@ namespace BreakoutClone.Screens
             oldKeyboardState = keyboardState;
         }
 
-        private void HandleEscInput()
-        {
-            if (activeScreen is ActionScreen)
-            {
-                ChangeScreen(pauseScreen);
-            }
-            if (activeScreen is StartScreen)
-            {
-                game.Exit();
-            }
-            else
-            {
-                ChangeScreen(startScreen);
-            }
-        }
-
-        private void HandlePauseScreenInput()
-        {
-            if (Helper.CheckKey(Keys.Enter, oldKeyboardState))
-            {
-                switch (pauseScreen.SelectedIndex)
-                {
-                    case 0:
-                        ChangeScreen(actionScreen);
-                        break;
-                    case 1:
-                        ChangeScreen(startScreen);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        private void HandleActionScreenInput()
+        private void HandleInput(ActionScreen actionScreen)
         {
             // Checking mouse and keyboard input.
 
@@ -162,6 +129,67 @@ namespace BreakoutClone.Screens
             }
         }
 
+        private void HandleInput(OptionsScreen optionsScreen)
+        {
+
+        }
+
+        private void HandleInput(StartScreen startScreen)
+        {
+            if (Helper.CheckKey(Keys.Enter, oldKeyboardState))
+            {
+                switch (startScreen.SelectedIndex)
+                {
+                    case 0:
+                        // Make a new version of actionScreen to set the gamestate clean.
+                        ResetGame();
+                        break;
+                    case 1:
+                        ChangeScreen(optionsScreen);
+                        break;
+                    case 2:
+                        game.Exit();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void HandleInput(PauseScreen pauseScreen)
+        {
+            if (Helper.CheckKey(Keys.Enter, oldKeyboardState))
+            {
+                switch (pauseScreen.SelectedIndex)
+                {
+                    case 0:
+                        ChangeScreen(actionScreen);
+                        break;
+                    case 1:
+                        ChangeScreen(startScreen);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void HandleEscInput()
+        {
+            if (activeScreen is ActionScreen)
+            {
+                ChangeScreen(pauseScreen);
+            }
+            if (activeScreen is StartScreen)
+            {
+                game.Exit();
+            }
+            else
+            {
+                ChangeScreen(startScreen);
+            }
+        }
+
         private void CheckMouse()
         {
             MouseState newMouseState = Mouse.GetState();
@@ -182,33 +210,6 @@ namespace BreakoutClone.Screens
             }
 
             oldMouseState = newMouseState;
-        }
-
-        private void HandleOptionsScreenInput()
-        {
-
-        }
-
-        private void HandleStartScreenInput()
-        {
-            if (Helper.CheckKey(Keys.Enter, oldKeyboardState))
-            {
-                switch (startScreen.SelectedIndex)
-                {
-                    case 0:
-                        // Make a new version of actionScreen to set the gamestate clean.
-                        ResetGame();
-                        break;
-                    case 1:
-                        ChangeScreen(optionsScreen);
-                        break;
-                    case 2:
-                        game.Exit();
-                        break;
-                    default:
-                        break;
-                }
-            }
         }
 
         private void ResetGame()
