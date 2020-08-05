@@ -229,5 +229,6 @@ namespace BreakoutClone
         {
             spritebatch.Draw(Image, Position, Color.White);
         }
+
     }
 }

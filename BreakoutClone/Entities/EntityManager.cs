@@ -20,31 +20,45 @@ namespace BreakoutClone
 
         public Paddle Player { get; set; }
 
-        Ball ActiveBall { get; set; }
+        Ball CurrentBall { get; set; }
 
-        Wall ActiveWall { get; set; }
+        Wall CurrentWall { get; set; }
 
         private readonly Random random = new Random();
 
-        public EntityManager()
-        {
-
-        }
-
         public void CreateEntities()
         {
-            ActiveWall = new Wall();
-            ActiveWall.Create(0, 100);
+            CreateWall();
 
+            CreatePlayer();
+
+            CreateBall();
+
+            AddEntitiesToLists();
+        }
+
+        private void AddEntitiesToLists()
+        {
+            Drawables = new List<IDrawable> { CurrentWall, Player, CurrentBall };
+            Updaters = new List<IUpdate> { Player, CurrentWall };
+        }
+
+        private void CreatePlayer()
+        {
             Player = new Paddle(new Vector2(Breakout.ScreenSize.X / 2, 600), 100, 20);
+        }
 
-            ActiveBall = new Ball(new Vector2(200, 300), 3, 3);
-            ActiveBall.Subscribe(Player);
-            ActiveBalls.Add(ActiveBall);
+        private void CreateWall()
+        {
+            CurrentWall = new Wall();
+            CurrentWall.Create(0, 100);
+        }
 
-            // Add items to drawable, updatable lists.
-            Drawables = new List<IDrawable> { ActiveWall, Player, ActiveBall };
-            Updaters = new List<IUpdate> { Player, ActiveWall };
+        private void CreateBall()
+        {
+            CurrentBall = new Ball(new Vector2(200, 300), 3, 3);
+            CurrentBall.Subscribe(Player);
+            ActiveBalls.Add(CurrentBall);
         }
 
         // The HandleInput methods receive raw input from ScreenManager
@@ -52,21 +66,9 @@ namespace BreakoutClone
 
         public void HandleInput(Keys key)
         {
-            if (key == Keys.Right)
+            if (key == Keys.Space && (CurrentBall.IsActive == false))
             {
-                Player.MoveRight();
-            }
-            if (key == Keys.Left)
-            {
-                Player.MoveLeft();
-            }
-
-            if (key == Keys.Space)
-            {
-                if (ActiveBall.IsActive == false)
-                {
-                    ActiveBall.Launch();
-                }
+                CurrentBall.Launch();
             }
         }
 
@@ -79,7 +81,7 @@ namespace BreakoutClone
         {
             if (WasThereAClick)
             {
-                ActiveBall.Launch();
+                CurrentBall.Launch();
             }
         }
 
@@ -87,21 +89,31 @@ namespace BreakoutClone
         {
             SpawnItems();
 
+            UpdateEntities();
+
+            RemakeWall();
+        }
+
+        private void UpdateEntities()
+        {
             foreach (IUpdate updatable in Updaters)
             {
                 updatable.Update();
             }
 
-            if (ActiveWall.BricksLeft < 1)
-            {
-                ActiveWall.Create(0, 100);
-
-                ActiveBall.Reset();
-            }
-
             foreach (Ball ball in ActiveBalls)
             {
-                ball.Update(ActiveWall, ActiveItems);
+                ball.Update(CurrentWall, ActiveItems);
+            }
+        }
+
+        private void RemakeWall()
+        {
+            if (CurrentWall.BricksLeft < 1)
+            {
+                CurrentWall.Create(0, 100);
+
+                CurrentBall.Reset();
             }
         }
 
@@ -110,7 +122,7 @@ namespace BreakoutClone
             // 1-in-600 chance for an item to spawn.
             // Must have destroyed some blocks before items spawn.
             // 3 max items.
-            if (random.Next(1, 100) == 1 && ActiveWall.BricksLeft < 27 && ActiveItems.Count < 3)
+            if (random.Next(1, 100) == 1 && CurrentWall.BricksLeft < 27 && ActiveItems.Count < 3)
             {
                 Item item = ChoosePowerUp();
 
@@ -124,9 +136,9 @@ namespace BreakoutClone
             switch (random.Next(4))
             {
                 case 1:
-                    return new PowerupBallSplit(ActiveBall, ActiveBalls);
+                    return new PowerupBallSplit(CurrentBall, ActiveBalls);
                 case 2:
-                    return new PowerupDestroyBricks(ActiveWall);
+                    return new PowerupDestroyBricks(CurrentWall);
                 case 3:
                     return new PowerupPaddleLength(Player);
                 default:
