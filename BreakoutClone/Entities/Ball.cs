@@ -36,8 +36,6 @@ namespace BreakoutClone
             set { yvelocity = Helper.Clamp(value, -10, 10); }
         }
 
-        public Rectangle PaddleHitbox { get; set; }
-
         public bool IsActive { get; set; }
 
         public Ball(Vector2 position, float XVelocity, float YVelocity)
@@ -79,45 +77,62 @@ namespace BreakoutClone
 
         private void CheckForWalls()
         {
-
-            // Velocity multiplied by -0.9 to slow down ball on wall hit. 
+            // Velocity multiplied by -0.9 to slow down ball on hit. 
 
             Double WallSpeedModifier = -0.9;
 
-            // Hit left wall
-            if (Position.X < 0)
-            {
-                Position.X = Helper.Clamp(Position.X, 0, Breakout.ScreenSize.X - Width);
-                XVelocity *= WallSpeedModifier;
-            }
+            XVelocity = BounceOffSideWalls(WallSpeedModifier, Position.X, xvelocity);
 
-            // Hit right wall
-            if (Position.X + Width > Breakout.ScreenSize.X)
-            {
-                Position.X = Helper.Clamp(Position.X, 0, Breakout.ScreenSize.X - Width);
-                XVelocity *= WallSpeedModifier;
-            }
+            YVelocity = BounceOffTopWall(WallSpeedModifier, Position.Y, YVelocity);
 
+            CheckForBottomWall(Position.Y);
+
+            ClampOnScreen();
+        }
+
+        private double BounceOffTopWall(double WallSpeedModifier, float y, double velocity)
+        {
             // Hit top of screen
 
-            if (Position.Y < 0)
+            if (y < 0)
             {
-                Position.Y = Helper.Clamp(Position.Y, 0, Breakout.ScreenSize.Y);
-                YVelocity *= WallSpeedModifier;
+                return velocity *= WallSpeedModifier;
             }
 
-            // Hit bottom of screen
-            if (Position.Y + Height > Breakout.ScreenSize.Y)
+            return velocity;
+        }
+
+        private void CheckForBottomWall(float y)
+        {
+            if (y + Height > Breakout.ScreenSize.Y)
             {
                 Reset();
             }
+        }
+
+        private double BounceOffSideWalls(double WallSpeedModifier, float x, double velocity)
+        {
+            // If ball's x-coordinate is off the screen, make it bounce against the wall.
+
+            if (x != Helper.Clamp(x, 0, Breakout.ScreenSize.X - Width))
+            {
+                return velocity *= WallSpeedModifier;
+            }
+
+            return velocity;
+        }
+
+        private void ClampOnScreen()
+        {
+            Position.X = Helper.Clamp(Position.X, 0, Breakout.ScreenSize.X - Width);
+            Position.Y = Helper.Clamp(Position.Y, 0, Breakout.ScreenSize.Y);
         }
 
         private int GetOffset(Rectangle rectangle)
         {
             float PointOfContactOnPaddle = rectangle.X + rectangle.Width - Position.X + Width / 2;
 
-            int offset = Convert.ToInt32((PaddleHitbox.Width - PointOfContactOnPaddle)) / 5;
+            int offset = Convert.ToInt32((rectangle.Width - PointOfContactOnPaddle)) / 5;
 
             return Helper.Clamp(offset, 0, int.MaxValue);
         }
