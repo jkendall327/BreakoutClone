@@ -180,11 +180,14 @@ namespace BreakoutClone.Screens
             if (activeScreen is ActionScreen)
             {
                 ChangeScreen(pauseScreen);
+                return;
             }
+
             if (activeScreen is StartScreen)
             {
                 game.Exit();
             }
+
             else
             {
                 ChangeScreen(startScreen);
@@ -195,12 +198,9 @@ namespace BreakoutClone.Screens
         {
             MouseState newMouseState = Mouse.GetState();
 
-            if (oldMouseState.X != newMouseState.X)
+            if (oldMouseState.X != newMouseState.X && Breakout.Viewport.Bounds.Contains(newMouseState.Position))
             {
-                if (Breakout.Viewport.Bounds.Contains(newMouseState.Position))
-                {
-                    actionScreen.EntitiesManager.HandleInput(newMouseState);
-                }
+                actionScreen.EntitiesManager.HandleInput(newMouseState);
             }
 
             // TODO: making an overload of HandleInput that accepts a bool is
