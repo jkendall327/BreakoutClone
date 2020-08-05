@@ -74,19 +74,31 @@ namespace BreakoutClone
             return new Rectangle(Position.ToPoint(), new Point(Width, Height));
         }
 
+        private Texture2D CreateRectangleTexture(Rectangle rectangle)
+        {
+            return new Texture2D(Breakout.Instance.GraphicsDevice, rectangle.Width, rectangle.Height);
+        }
+
+        private Color[] FillTextureWithColor(Rectangle rectangle, Color color)
+        {
+            Color[] data = new Color[rectangle.Width * rectangle.Height];
+
+            for (int i = 0; i < data.Length; ++i)
+                data[i] = color;
+
+            return data;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             // Draws the paddle based on the current hitbox using primitives.
 
             var Hitbox = GetCurrentHitbox();
 
-            Color[] data = new Color[Hitbox.Width * Hitbox.Height];
-            Texture2D rectTexture = new Texture2D(Breakout.Instance.GraphicsDevice, Hitbox.Width, Hitbox.Height);
+            Texture2D rectTexture = CreateRectangleTexture(Hitbox);
 
-            for (int i = 0; i < data.Length; ++i)
-                data[i] = Color.White;
+            rectTexture.SetData(FillTextureWithColor(Hitbox, Color.White));
 
-            rectTexture.SetData(data);
             var position = new Vector2(Hitbox.Left, Hitbox.Top);
 
             spriteBatch.Draw(rectTexture, position, Color.White);
