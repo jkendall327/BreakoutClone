@@ -24,6 +24,8 @@ namespace BreakoutClone
 
         Vector2 Position;
 
+        private const int PixelsToMovePaddleBy = 5;
+
         public event EventHandler<Rectangle> PaddleMoved;
 
         public Paddle(Vector2 position, int width, int height)
@@ -46,7 +48,7 @@ namespace BreakoutClone
 
         public void MoveLeft()
         {
-            Position.X -= 5;
+            Position.X -= PixelsToMovePaddleBy;
 
             if (Position.X < 1)
             {
@@ -58,7 +60,7 @@ namespace BreakoutClone
 
         public void MoveRight()
         {
-            Position.X += 5;
+            Position.X += PixelsToMovePaddleBy;
 
             if (Position.X + Width > Breakout.ScreenSize.X)
             {
