@@ -14,7 +14,7 @@ namespace BreakoutClone
 
     public class GameScreenEventArgs
     {
-        GameStates desiredScreen;
+        public GameStates desiredScreen;
 
         public GameScreenEventArgs(GameStates screen)
         {

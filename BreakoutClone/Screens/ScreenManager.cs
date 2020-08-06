@@ -56,7 +56,26 @@ namespace BreakoutClone.Screens
 
             activeScreen = startScreen;
             inputHandler.keyPressed += activeScreen.OnKeyPressed;
+            activeScreen.screenChanged += OnScreenChange;
             activeScreen.Show();
+        }
+
+        private void OnScreenChange(object sender, GameScreenEventArgs screen)
+        {
+            switch (screen.desiredScreen)
+            {
+                case GameStates.Start:
+                    break;
+                case GameStates.Options:
+                    ChangeScreen(optionsScreen);
+                    break;
+                case GameStates.Pause:
+                    break;
+                case GameStates.Action:
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void ChangeScreen(GameScreen screen)

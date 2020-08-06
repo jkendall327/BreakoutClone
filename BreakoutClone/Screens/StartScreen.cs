@@ -51,8 +51,7 @@ namespace BreakoutClone
                         //ResetGame();
                         break;
                     case 1:
-                        //OnScreenChanged(new GameScreenEventArgs(new OptionsScreen()));
-                        //ChangeScreen(optionsScreen);
+                        OnScreenChanged(new GameScreenEventArgs(GameStates.Options));
                         break;
                     case 2:
                         game.Exit();
