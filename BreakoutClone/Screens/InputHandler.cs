@@ -25,8 +25,6 @@ namespace BreakoutClone.Screens
         public event EventHandler<KeyboardEventArgs> keyPressed;
         public event EventHandler<KeyboardEventArgs> keyHeld;
 
-
-
         public InputHandler()
         {
 

@@ -51,6 +51,7 @@ namespace BreakoutClone
                         //ResetGame();
                         break;
                     case 1:
+                        //OnScreenChanged(new GameScreenEventArgs(new OptionsScreen()));
                         //ChangeScreen(optionsScreen);
                         break;
                     case 2:
@@ -61,5 +62,6 @@ namespace BreakoutClone
                 }
             }
         }
+
     }
 }

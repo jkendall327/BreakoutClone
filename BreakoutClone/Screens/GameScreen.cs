@@ -1,16 +1,39 @@
 ﻿using BreakoutClone.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Xml.XPath;
 
 namespace BreakoutClone
 {
+    public enum GameStates
+    {
+        Start, Options, Pause, Action
+    }
+
+    public class GameScreenEventArgs
+    {
+        GameStates desiredScreen;
+
+        public GameScreenEventArgs(GameStates screen)
+        {
+            this.desiredScreen = screen;
+        }
+    }
+
     public abstract class GameScreen : DrawableGameComponent
     {
         readonly List<GameComponent> components = new List<GameComponent>();
         protected Game game;
         protected SpriteBatch spriteBatch;
+
+        public event EventHandler<GameScreenEventArgs> screenChanged;
+
+        protected virtual void OnScreenChanged(GameScreenEventArgs screen)
+        {
+            screenChanged?.Invoke(this, screen);
+        }
 
         public List<GameComponent> Components
         {
