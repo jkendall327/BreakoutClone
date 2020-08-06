@@ -13,14 +13,15 @@ namespace BreakoutClone.Screens
         private KeyboardState keyboardState;
 
         public event EventHandler<KeyboardEventArgs> keyPressed;
+        public event EventHandler<KeyboardEventArgs> keyHeld;
 
         public class KeyboardEventArgs
         {
-            List<Keys> pressedKeys = new List<Keys>();
+            readonly List<Keys> Keys = new List<Keys>();
 
             public KeyboardEventArgs(List<Keys> keys)
             {
-                pressedKeys = keys;
+                Keys = keys;
             }
         }
 
@@ -45,6 +46,28 @@ namespace BreakoutClone.Screens
                 return;
             }
 
+            GetKeysReleasedThisFrame();
+
+            GetHeldKeys();
+
+            oldKeyboardState = keyboardState;
+        }
+
+        private void GetHeldKeys()
+        {
+            /*
+             * If a key was held last frame and this frame,
+             * that means it's being held down.
+             */
+
+            if (oldKeyboardState.GetPressedKeys() == keyboardState.GetPressedKeys())
+            {
+                keyHeld.Invoke(this, new KeyboardEventArgs(keyboardState.GetPressedKeys().ToList()));
+            }
+        }
+
+        private void GetKeysReleasedThisFrame()
+        {
             /*
              * We want not the keys pressed on this frame, but 
              * those pressed last frame and released this frame. 
@@ -63,8 +86,6 @@ namespace BreakoutClone.Screens
             }
 
             keyPressed.Invoke(this, new KeyboardEventArgs(keysReleasedThisFrame));
-
-            oldKeyboardState = keyboardState;
         }
     }
 }
