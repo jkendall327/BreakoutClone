@@ -60,6 +60,7 @@
     <Compile Include="Entities\Brick.cs" />
     <Compile Include="Entities\EntityManager.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
+    <Compile Include="Screens\InputHandler.cs" />
     <Compile Include="Screens\MenuComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
