@@ -24,6 +24,8 @@ namespace BreakoutClone.Screens
          
         private MouseState oldMouseState;
 
+        private InputHandler inputHandler;
+
         public ScreenManager(Breakout game, SpriteBatch spriteBatch)
         {
             this.game = game;
@@ -34,6 +36,8 @@ namespace BreakoutClone.Screens
 
         public void LoadScreens()
         {
+            inputHandler = new InputHandler();
+
             startScreen = new StartScreen(game, spriteBatch, Content.Load<SpriteFont>("menufont"), Content.Load<Texture2D>("background"));
             Components.Add(startScreen);
             startScreen.Hide();
@@ -51,6 +55,7 @@ namespace BreakoutClone.Screens
             pauseScreen.Hide();
 
             activeScreen = startScreen;
+            inputHandler.keyPressed += activeScreen.OnKeyPressed;
             activeScreen.Show();
         }
 
@@ -63,6 +68,8 @@ namespace BreakoutClone.Screens
 
         public void CheckInput()
         {
+            inputHandler.Update();
+
             keyboardState = Keyboard.GetState();
 
             //Switch on the run-time type of activeScreen using pattern-matching.

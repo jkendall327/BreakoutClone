@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 
 namespace BreakoutClone.Screens
 {
+    public class KeyboardEventArgs
+    {
+        readonly List<Keys> Keys = new List<Keys>();
+
+        public KeyboardEventArgs(List<Keys> keys)
+        {
+            Keys = keys;
+        }
+    }
+
     class InputHandler
     {
         private KeyboardState oldKeyboardState;
@@ -15,15 +25,7 @@ namespace BreakoutClone.Screens
         public event EventHandler<KeyboardEventArgs> keyPressed;
         public event EventHandler<KeyboardEventArgs> keyHeld;
 
-        public class KeyboardEventArgs
-        {
-            readonly List<Keys> Keys = new List<Keys>();
 
-            public KeyboardEventArgs(List<Keys> keys)
-            {
-                Keys = keys;
-            }
-        }
 
         public InputHandler()
         {
@@ -85,7 +87,7 @@ namespace BreakoutClone.Screens
                 }
             }
 
-            keyPressed.Invoke(this, new KeyboardEventArgs(keysReleasedThisFrame));
+            keyPressed?.Invoke(this, new KeyboardEventArgs(keysReleasedThisFrame));
         }
     }
 }

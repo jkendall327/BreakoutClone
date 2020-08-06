@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BreakoutClone.Screens;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Xml.XPath;
@@ -65,6 +66,11 @@ namespace BreakoutClone
                 if (component is DrawableGameComponent)
                     ((DrawableGameComponent)component).Visible = false;
             }
+        }
+
+        public virtual void OnKeyPressed(object sender, KeyboardEventArgs keys)
+        {
+            // ...
         }
 
     }
