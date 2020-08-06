@@ -16,6 +16,12 @@ namespace BreakoutClone.Screens
 
         public class KeyboardEventArgs
         {
+            Keys[] keys;
+
+            public KeyboardEventArgs(Keys[] keys)
+            {
+                this.keys = keys;
+            }
         }
 
         public InputHandler()
@@ -24,6 +30,11 @@ namespace BreakoutClone.Screens
         }
 
         public void Update()
+        {
+            CheckKeyboard();
+        }
+
+        private void CheckKeyboard()
         {
             keyboardState = Keyboard.GetState();
 
@@ -34,10 +45,9 @@ namespace BreakoutClone.Screens
                 return;
             }
 
+            keyPressed.Invoke(this, new KeyboardEventArgs(keyboardState.GetPressedKeys()));
 
             oldKeyboardState = keyboardState;
         }
-
-
     }
 }
