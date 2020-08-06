@@ -133,26 +133,26 @@ namespace BreakoutClone.Screens
         }
         private void HandleInput(StartScreen startScreen)
         {
-            if (Helper.CheckKey(Keys.Enter, oldKeyboardState))
-            {
-                switch (startScreen.SelectedIndex)
-                {
-                    case 0:
-                        // Make a new version of actionScreen to set the gamestate clean.
-                        ResetGame();
-                        break;
-                    case 1:
-                        ChangeScreen(optionsScreen);
-                        break;
-                    case 2:
-                        game.Exit();
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //if (Helper.CheckKey(Keys.Enter, oldKeyboardState))
+            //{
+            //    switch (startScreen.SelectedIndex)
+            //    {
+            //        case 0:
+            //            // Make a new version of actionScreen to set the gamestate clean.
+            //            ResetGame();
+            //            break;
+            //        case 1:
+            //            ChangeScreen(optionsScreen);
+            //            break;
+            //        case 2:
+            //            game.Exit();
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
 
-            HandleEsc();
+            //HandleEsc();
         }
 
         private void HandleInput(PauseScreen pauseScreen)

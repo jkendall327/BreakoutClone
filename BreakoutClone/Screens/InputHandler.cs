@@ -9,11 +9,11 @@ namespace BreakoutClone.Screens
 {
     public class KeyboardEventArgs
     {
-        readonly List<Keys> Keys = new List<Keys>();
+        public readonly List<Keys> EventKeys = new List<Keys>();
 
         public KeyboardEventArgs(List<Keys> keys)
         {
-            Keys = keys;
+            EventKeys = keys;
         }
     }
 

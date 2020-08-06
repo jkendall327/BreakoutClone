@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BreakoutClone.Screens;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace BreakoutClone
 {
@@ -27,15 +29,37 @@ namespace BreakoutClone
             imageRectangle = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
-
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Draw(image, imageRectangle, Color.White);
             base.Draw(gameTime);
+        }
+
+        public override void OnKeyPressed(object sender, KeyboardEventArgs keys)
+        {
+            if (keys.EventKeys.Contains(Keys.Escape))
+            {
+                game.Exit();
+            }
+
+            if (keys.EventKeys.Contains(Keys.Enter))
+            {
+                switch (SelectedIndex)
+                {
+                    case 0:
+                        // Make a new version of actionScreen to set the gamestate clean.
+                        //ResetGame();
+                        break;
+                    case 1:
+                        //ChangeScreen(optionsScreen);
+                        break;
+                    case 2:
+                        game.Exit();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
