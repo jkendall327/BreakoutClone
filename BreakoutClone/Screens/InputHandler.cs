@@ -16,11 +16,11 @@ namespace BreakoutClone.Screens
 
         public class KeyboardEventArgs
         {
-            Keys[] keys;
+            List<Keys> pressedKeys = new List<Keys>();
 
-            public KeyboardEventArgs(Keys[] keys)
+            public KeyboardEventArgs(List<Keys> keys)
             {
-                this.keys = keys;
+                pressedKeys = keys;
             }
         }
 
@@ -45,7 +45,24 @@ namespace BreakoutClone.Screens
                 return;
             }
 
-            keyPressed.Invoke(this, new KeyboardEventArgs(keyboardState.GetPressedKeys()));
+            /*
+             * We want not the keys pressed on this frame, but 
+             * those pressed last frame and released this frame. 
+             * Therefore we have to filter.
+             */
+
+            Keys[] pressedKeys = oldKeyboardState.GetPressedKeys();
+            List<Keys> keysReleasedThisFrame = new List<Keys>();
+
+            foreach (Keys key in pressedKeys)
+            {
+                if (Helper.CheckKey(key, oldKeyboardState))
+                {
+                    keysReleasedThisFrame.Add(key);
+                }
+            }
+
+            keyPressed.Invoke(this, new KeyboardEventArgs(keysReleasedThisFrame));
 
             oldKeyboardState = keyboardState;
         }
